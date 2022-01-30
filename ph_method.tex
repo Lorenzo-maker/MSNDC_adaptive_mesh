@@ -28,64 +28,69 @@
 %  cleanfoot - take out copyright info in footer leave page number
 %  cleanhead - take out the conference banner on the title page
 %  titlepage/notitlepage - put in titlepage or leave out titlepage
-%  
+%
 %% The default is oneside, onecolumn, 10pt, final
 
 %%% Replace here with information related to your conference
-\confshortname{IDETC/CIE 2009}
-\conffullname{the ASME 2009 International Design Engineering Technical Conferences \&\\
+\confshortname{IDETC/CIE 2022}
+\conffullname{the ASME 2022 International Design Engineering Technical Conferences \&\\
               Computers and Information in Engineering Conference}
 
 %%%%% for date in a single month, use
 %\confdate{24-28}
 %\confmonth{September}
 %%%%% for date across two months, use
-\confdate{August 30-September 2}
-\confyear{2009}
-\confcity{San Diego}
+\confdate{August 14-17}
+\confyear{2022}
+\confcity{St. Louis, Missouri}
 \confcountry{USA}
 
-%%% Replace DETC2009/MESA-12345 with the number supplied to you 
+%%% Replace DETC2009/MESA-12345 with the number supplied to you
 %%% by ASME for your paper.
-\papernum{DETC2009/MESA-12345}
+\papernum{DETC2022/MSNDC-12345}
 
 %%% You need to remove 'DRAFT: ' in the title for the final submitted version.
-\title{DRAFT: AN ARTICLE CREATED USING \LaTeX2\raisebox{-.3ex}{$\epsilon$}\ IN ASME FORMAT}
+%\title{DRAFT: AN ARTICLE CREATED USING \LaTeX2\raisebox{-.3ex}{$\epsilon$}\ IN ASME FORMAT}
+\title{A $p^n h$-adaptive refinement procedure\\
+for numerical optimal control problems}
 %%% for the discussion section only
 %\usepackage{helvet}
 %\title{\fontfamily{phv}\selectfont{\Huge{DRAFT: AN ARTICLE CREATED USING \LaTeX2\raisebox{-.3ex}{$\epsilon$}\ IN ASME FORMAT}}}
 
 %%% first author
-\author{Harry H. Cheng
+\author{Lorenzo Bartali\thanks{Address all correspondence to this author.}
     \affiliation{
-	Integration Engineering Laboratory\\
-	Department of Mechanical and Aeronautical Engineering\\
-	University of California\\
-	Davis, California 95616\\
-    Email: hhcheng@ucdavis.edu
+	Dipartimento di Ingegneria Civile e Industriale\\
+	Universit\`{a} di Pisa\\
+	56122 Pisa PI, Italy\\
+    Email: lorenzo.bartali@phd.unipi.it
     }	
 }
 
 %%% second author
 %%% remove the following entry for single author papers
 %%% add more entries for additional authors
-\author{First Coauthor\thanks{Address all correspondence to this author.} \\
-       {\tensfb Second Coauthor}     
-    \affiliation{Department or Division Name\\
-	Company or College Name\\
-	City, State (spelled out), Zip Code\\
-	Country (only if not U.S.)\\
-	Email address (if available)
+\author{Marco Gabiccini\\
+       {\tensfb Massimo Guiggiani}
+    \affiliation{Dipartimento di Ingegneria Civile e Industriale\\
+	Universit\`{a} di Pisa\\
+	56122 Pisa PI, Italy\\
+	Email: marco.gabiccini@unipi.it\\
+\phantom{Email:} massimo.guiggiani@unipi.it
     }
 }
 
 \begin{document}
 
-\maketitle    
+\maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-{\it This article illustrates preparation of ASME paper using \LaTeX2\raisebox{-.3ex}{$\epsilon$}. An abstract for an ASME paper should be less than 150 words and is normally in italics.}
+{\it This paper presents an automatic procedure to enhance the accuracy of the numerical solution of an optimal control problem (OCP) discretized via direct collocation at Gauss-Legendre points. First, a numerical solution is obtained by solving a nonlinear program (NLP). Then, the method evaluates its accuracy and adaptively changes both the degree of the approximating polynomial within each mesh interval and the number of mesh intervals until a prescribed accuracy is met.%, thus following a ph-strategy.
+The number of mesh intervals is increased for all state vector components alike, in a classical fashion. Instead, improving on state-of-the-art procedures, the degrees of the polynomials approximating the different components of the state vector are allowed to assume, in each finite element, distinct values. This explains the $p^nh$-adaptive refinement definition, being $n$ the state dimension.
+%First, component-wise state error estimates are computed based on the difference between the Lagrange polynomial approximation and a corresponding estimate obtained by quadrature of the dynamics at Gauss-Legendre points within each finite element. Then, the derived error estimates are employed to establish whether the degree of the approximating polynomial should be increased or the mesh interval should be split into subintervals. The first option is selected if the degree suggested by the method remains below a given threshold for all state components. Otherwise, a finer mesh is created in those intervals where excessive error is registered. The NLP problem is solved again with the enhanced mesh and the evaluation procedure described is repeated. The process stops when a solution meets the specified error tolerance from the outset.
+
+Numerical tests on three OCP problems highlight that, by tailoring the degree of the polynomial separately for each state, under the same maximum allowable error, the degree of the polynomial approximation of some states can be lower than others, thus reducing the number of NLP variables needed. Accordingly, various advantages are brought about, the most remarkable being: (i) an increased computational efficiency for the final enhanced mesh with solution accuracy still within the specified tolerance, (ii) a reduced risk of being stuck in local minima due to the reduced NLP size.}
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,7 +130,7 @@ ASME assigns each accepted paper with a unique number. Replace {\bf DETC98/DAC-1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{USE OF SI UNITS}
 
-An ASME paper should use SI units.  When preference is given to SI units, the U.S. customary units may be given in parentheses or omitted. When U.S. customary units are given preference, the SI equivalent {\em shall} be provided in parentheses or in a supplementary table. 
+An ASME paper should use SI units.  When preference is given to SI units, the U.S. customary units may be given in parentheses or omitted. When U.S. customary units are given preference, the SI equivalent {\em shall} be provided in parentheses or in a supplementary table.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{MATHEMATICS}
 
@@ -154,9 +159,9 @@ All figures should be positioned at the top of the page where possible.  All fig
 \end{picture}
 \end{center}
 \caption{THE FIGURE CAPTION USES CAPITAL LETTERS.}
-\label{figure_ASME} 
+\label{figure_ASME}
 \end{figure}
-%%%%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -177,7 +182,7 @@ Example & Time & Cost \\
 \end{tabular}
 \end{center}
 \end{table}
-%%%%%%%%%%%%%%%% end table %%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%% end table %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 All tables should be numbered consecutively and  captioned; the caption should use all capital letters, and centered above the table as shown in Table~\ref{table_ASME}. The body of the table should be no smaller than 7 pt.  There should be a minimum two line spaces between tables and text.
@@ -206,14 +211,14 @@ The bibliography style required by the ASME is unsorted with entries appearing i
 With \LaTeX/{\sc Bib}\TeX, \LaTeX\ uses the citation format set by the class file and writes the citation information into the .aux file associated with the \LaTeX\ source. {\sc Bib}\TeX\ reads the .aux file and matches the citations to the entries in the bibliographic data base file specified in the \LaTeX\ source file by the \verb+\bibliography+ command. {\sc Bib}\TeX\ then writes the bibliography in accordance with the rules in the bibliography .bst style file to a .bbl file which \LaTeX\ merges with the source text.  A good description of the use of {\sc Bib}\TeX\ can be found in \cite{latex, goosens} (see how 2 references are handled?).  The following is an example of how three or more references \cite{latex, asmemanual,  goosens} show up using the \verb+asmems4.bst+ bibliography style file in conjunction with the \verb+asme2e.cls+ class file. Here are some more \cite{art, blt, ibk, icn, ips, mts, mis, pro, pts, trt, upd} which can be used to describe almost any sort of reference.
 
 % Here's where you specify the bibliography style file.
-% The full file name for the bibliography style file 
+% The full file name for the bibliography style file
 % used for an ASME paper is asmems4.bst.
 \bibliographystyle{asmems4}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{acknowledgment}
-Thanks go to D. E. Knuth and L. Lamport for developing the wonderful word processing software packages \TeX\ and \LaTeX. I also would like to thank Ken Sprott, Kirk van Katwyk, and Matt Campbell for fixing bugs in the ASME style file \verb+asme2e.cls+, and Geoff Shiflett for creating 
+Thanks go to D. E. Knuth and L. Lamport for developing the wonderful word processing software packages \TeX\ and \LaTeX. I also would like to thank Ken Sprott, Kirk van Katwyk, and Matt Campbell for fixing bugs in the ASME style file \verb+asme2e.cls+, and Geoff Shiflett for creating
 ASME bibliography stype file \verb+asmems4.bst+.
 \end{acknowledgment}
 
