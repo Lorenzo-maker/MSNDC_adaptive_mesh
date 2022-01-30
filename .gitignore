@@ -10,3 +10,7 @@ ph_method.synctex.gz
 ph_method.blg
 
 ph_method.aux
+
+*.bbl
+
+RIS/
