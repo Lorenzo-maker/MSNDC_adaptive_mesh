@@ -1,2 +1,27 @@
 \section*{LEGENDRE-GAUSS COLLOCATION METHOD WITH DIFFERENT STATES DEGREE}
-Spiego il collocation generico
+The $\pnh$ form of the continous optimal control problem of previous section is discretized using the \emph{direct collocation} method at Gauss-Legendre collocation points. In \emph{direct collocation} method the time horizon is discretized on a fixed mesh, where the generic interval is called $S_{k} = [T_{k-1}, T_{k}]$, and the mesh step interval $h_{k} = T_{k-1} - T_{k}$ (with $k \inset N$). The values at mesh points (nodal values) are indicated by $X_{k}$, $U_{k}$ and $T_{k}$, for  states, controls and time, respectively.
+The parametrization of the controls on the same mesh is chosen as piecewise constant, which yield on each interval $[T_{k-1}, T_{k}]$ to a constant control $U(t) = U_{k}$.
+
+For what concerns the states in $S_{k}$, the classical approach that appears in literature, approximate them by a polynomial of the same degree $d$.
+Instead in this paper we differentiate this degree for each state and for each mesh interval. Hence the $i$-th state on the $S_{k}$ subinterval is defined by the following polynomial of degree $\dki$
+
+\begin{equation}
+\Xkidki (\tau) = \sum_{m=0}^{\dki} \Lmdki(\tau)\xkim \,\text{,} 
+\end{equation}
+
+
+where $\tau \in [0,1]$ is the normalize time on $S_k$, hence $T_k(\tau) = T_{k-1} + h_k\tau$.
+Instead $\Lmdki (\tau)$ are the basis of Lagrange polynomials of degree $\dki$. For the considered state, they are calculated considering the points $\bartaudki = [\tau_{0}, \taudki]$, where $\tau_{0} = 0$ and $\taudki$ are the $\dki$ Gauss-Legendre collocation points.
+After all, $\xkim$ are the values of the state polynomial in the $\bartaudki$ points.
+
+Definiti stati e controlli è necessari definire la derivata dei polinomi degli stati in modo da poter scrivere le equazioni di collocazione.
+EQ....
+
+E' inolte utile definire la quantità Xkd....
+
+
+
+
+
+
+

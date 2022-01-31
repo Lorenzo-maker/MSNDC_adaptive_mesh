@@ -1,6 +1,6 @@
 \section*{OPTIMAL CONTROL PROBLEM}
-
-Considering that the $p^{n}h$ adaptive refinement algorithm is applied to a general optimal control problem (OCP), in this section the structure and the notation of this kind of problem is analyzed.
+\label{sec:OCP}
+Considering that the $\pnh$ adaptive refinement algorithm is applied to a general optimal control problem (OCP), in this section the structure and the notation of this kind of problem is analyzed.
 
 
 The generic form of an OCP is as follows
@@ -21,4 +21,5 @@ where $t$ is the independent variable (time), $T$ is the terminal time, $X \in \
 
 The OCP is characterized by an integral cost function, with a running cost $l$, a terminal cost $E(X(T))$, and three kinds of constraints: dynamics $\dot{X}-f(\cdot) \in \Rng$, inequality $h(\cdot) \in \Rnh$, and terminal constraints $r(\cdot) \in \Rnr$.
 The solution of the OCP  consists of the controls $U^{*}(t)$ and the states $X^*(t)$  minimizing the integral cost function while satisfying the above constraints.
+
 

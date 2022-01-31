@@ -2,10 +2,34 @@
 %%%% Shorthands for greek letters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% capital greek letters
+% Command for generic OCP
 %\newcommand{\fdyn}{\mathlarger{f}}
-\newcommand{\Rnx}{\mathbb{R}^{n_{x}}}
+\newcommand{\Rnx}{\mathbb{R}^{n_{x}}} %R^nx mathematical set
 \newcommand{\Rnu}{\mathbb{R}^{n_{u}}}
 \newcommand{\Rng}{\mathbb{R}^{n_{g}}}
 \newcommand{\Rnh}{\mathbb{R}^{n_{h}}}
 \newcommand{\Rnr}{\mathbb{R}^{n_{r}}}
+
+
+% Command for general collocation
+\newcommand{\inset}[1]{\in [1,\dots,#1]}
+\newcommand{\insetz}[1]{\in [0,\dots,#1]}
+\newcommand{\pnh}{p^{n}h}
+\newcommand{\hk}{h_{k}}                       % Discretization step 
+\newcommand{\dki}{d_{k,i}}                    % degree of i-state in k-interval
+\newcommand{\taudki}{\tau^{d_{k,i}}}     % Gauss-Legendre Collocation for i-state in k-interval
+\newcommand{\bartaudki}{\bar{\tau}^{d_{k,i}}} % Collocation + tau = 0
+\newcommand{\taujdki}{\tau_{j}^{d_{k,i}}}
+\newcommand{\Tk}{T_{k}}                       % Time at k-grid-point 
+\newcommand{\Tkjdki}{T_{k,j}^{d_{k,i}}}       % Time at j-collocation of i-state in k-interval 
+\newcommand{\Xkidki}{X_{k,i}^{d_{k,i}}} % Lagrange poly for i-state in k-interval of degree dki 
+\newcommand{\Lmdki}{L_{m}^{d_{k,i}}}
+\newcommand{\xkim}{x_{k,i,m}}  
+\newcommand{\fdi}{f_{i}} 
+\newcommand{\Vki}{V_{k,i}} 
+\newcommand{\Xkd}{X_{k}^{d}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\Xkdi}[1]{X_{k,#1}^{d_{k,#1}}}
+\newcommand{\bard}{\bar{d}}
+\newcommand{\lm}{l_{m}^{\bar{d}}}
+\newcommand{\Jkm}{J_{k,m}}
