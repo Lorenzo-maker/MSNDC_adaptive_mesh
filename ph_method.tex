@@ -85,143 +85,29 @@ for numerical optimal control problems}
 \maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{abstract}
-{\it This paper presents an automatic procedure to enhance the accuracy of the numerical solution of an optimal control problem (OCP) discretized via direct collocation at Gauss-Legendre points. First, a numerical solution is obtained by solving a nonlinear program (NLP). Then, the method evaluates its accuracy and adaptively changes both the degree of the approximating polynomial within each mesh interval and the number of mesh intervals until a prescribed accuracy is met.%, thus following a ph-strategy.
-The number of mesh intervals is increased for all state vector components alike, in a classical fashion. Instead, improving on state-of-the-art procedures, the degrees of the polynomials approximating the different components of the state vector are allowed to assume, in each finite element, distinct values. This explains the $p^nh$-adaptive refinement definition, being $n$ the state dimension.
-%First, component-wise state error estimates are computed based on the difference between the Lagrange polynomial approximation and a corresponding estimate obtained by quadrature of the dynamics at Gauss-Legendre points within each finite element. Then, the derived error estimates are employed to establish whether the degree of the approximating polynomial should be increased or the mesh interval should be split into subintervals. The first option is selected if the degree suggested by the method remains below a given threshold for all state components. Otherwise, a finer mesh is created in those intervals where excessive error is registered. The NLP problem is solved again with the enhanced mesh and the evaluation procedure described is repeated. The process stops when a solution meets the specified error tolerance from the outset.
-
-Numerical tests on three OCP problems highlight that, by tailoring the degree of the polynomial separately for each state, under the same maximum allowable error, the degree of the polynomial approximation of some states can be lower than others, thus reducing the number of NLP variables needed. Accordingly, various advantages are brought about, the most remarkable being: (i) an increased computational efficiency for the final enhanced mesh with solution accuracy still within the specified tolerance, (ii) a reduced risk of being stuck in local minima due to the reduced NLP size.}
-\end{abstract}
+\maketitle    
+\begingroup
+\let\clearpage\relax
+\include{mymacros}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{nomenclature}
-\entry{A}{You may include nomenclature here.}
-\entry{$\alpha$}{There are two arguments for each entry of the nomemclature environment, the symbol and the definition.}
-\end{nomenclature}
-
-The spacing between abstract and the text heading is two line spaces.  The primary text heading is  boldface in all capitals, flushed left with the left margin.  The spacing between the  text and the heading is also two line spaces.
+\include{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{INTRODUCTION}
-
-Over the past 25 years, direct collocation methods have become popular for the numerical solution of nonlinear optimal control problems, see e.g.~\cite{Fahroo:JGCD:2002,Elnager:TAC:1995,Fahroo:JAS:2000,Gong:AAS:2006}. In direct collocation methods, state and control functions are discretized at a set of approprietely chosen points in the time horizon considered. Then, the continuous time optimal control problem (OCP) is \emph{transcribed} to a finite-dimensional nonlinear program (NLP), and the NLP is coded and solved using different available software packages, such as~\cite{casadi:MPC:2019, Rao:TMS:2010,GPOPSII:TMS:2013} typically interfaced with Interior-Point~\cite{Biegler:CCE:2009} or SQP~\cite{SNOPT:SIAMReview:2005} back-end solvers.
-
-Qui si possono citare approcci molto diversi dal nostro per effettuare il raffinamento della soluzione, tipo [multi-resolution, wavelets, etc.].
-
-Poi partiamo con quelli del nostro filone.
-
-Recently, a great deal of research effort has been spent in the class of Gauss quadrature orthogonal collocation methods []. In these approaches, the state is typically approximated using a Lagrange polynomial where the support points are chosen as Gauss quadrature points. The most developed employ either Gauss-Legendre or Gauss-Radau points. Gauss quadrature collocation methods have originally been implemented as p methods with a single interval for the whole time horizon. Convergence of these methods was achieved by increasing the degree of the approximating polynomial. Their converge rate is exponential for problems with smooth and well-behaved solutions []. On the contrary, h methods, where convergence is sought by increasing the number of mesh intervals, work well for problems whose solutions are non smooth, since even a low-order polynomial approximation can capture wild solution behaviors on an extremely fine mesh. However, their converge rate is slow for problems with smooth solutions as compared to p methods.
-With the goal of taking the best of both worlds hp methods have been developed [finite elements for solving PDE] and OCP [Rao, Darby, Hager]. Qui l'ordine è importante perché prima cercano di infittire la mesh e poi aumentare il grado del polinomio. Tuttavia questi metodi [Rao, Darby, Hager] hanno dimostrato bassa efficienza computazionale nella soluzione degli NLP. Inoltre, come affermato dagli stessi autori, il problema di questo approccio hp è che creates a great deal of noise in the error estimate, thereby making these approaches computationally intractable when high-accuracy solutions are desired. Furthermore, the error estimate defined for these methods does not take advantage of the exponential convergence rate of a Gaussian quadrature collocation method.
-Da qui la motivazione che ha portato gli stessi autori a sviluppare un metodo diverso, definito ph method, dove la procedure di mesh refinement è ribaltata e che porta una serie di vantaggi.
-
-A questo punto ci inseriamo noi sulle motivazioni che ci hanno spinto a sviluppare un metodo che differenzi il grado del polinomio per ogni stato. Questa cosa ha senso sia perché nell'approccio di Rao, da cui abbiamo preso spunto, loro forse troppo cautelativo portano l'ordine di tutti polinomi al massimo richiesto da quello che sta peggio. Questo ha un vantaggio nel senso che la gestione di cosa succede in ogni elemento è più semplice. Tuttavia si ha uno spreco di risorse, dal momento che per rappresentare l'andamento di una soluzione per una certa componente dello stato, in una data serie di elementi finiti, può essere anche sufficiente un grado più basso di quello necessario per un altra componente dello stato.
-
-
-This article illustrates preparation of ASME paper using \LaTeX2\raisebox{-.3ex}{$\epsilon$}. The \LaTeX\  macro \verb+asme2e.cls+, the {\sc Bib}\TeX\ style file \verb+asmems4.bst+, and the template \verb+asme2e.tex+ that create this article are available on the WWW  at the URL address \verb+http://iel.ucdavis.edu/code/+. To ensure compliance with the 2003 ASME MS4 style guidelines  \cite{asmemanual}, you should modify neither the \LaTeX\ macro \verb+asme2e.cls+ nor the {\sc Bib}\TeX\ style file \verb+asmems4.bst+. By comparing the output generated by typesetting this file and the \LaTeX2\raisebox{-.3ex}{$\epsilon$} source file, you should find everything you need to help you through the preparation of ASME paper using \LaTeX2\raisebox{-.3ex}{$\epsilon$}. Details on using \LaTeX\ can be found in \cite{latex}. Instructions for submitting an electronic version of a paper via ftp for publication on CD-ROM or online  are given at the URL address \verb+http://www.asme.org/pubs/submittal.html+.
+\include{Introduction}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{VERY VERY VERY VERY VERY VERY VERY VERY LONG HEADING}
-
-If the heading should run into more than one line, the run-over is flush left.
+\include{OCP}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Second-Level Heading}
-
-The next level of heading is boldface with upper and lower case letters. The heading is flushed left with the left margin. The spacing to the next heading is two line spaces.
+\include{collocation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection*{Third-Level Heading.}
-
-The third-level of heading follows the style of the second-level heading, but it is indented and followed by a period, a space, and the start of corresponding text.
+\include{adaptive_method}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{PAPER NUMBER}
+\include{example}
 
-ASME assigns each accepted paper with a unique number. Replace {\bf DETC98/DAC-1234} in the input file preamble (the location will be obvious) with the paper number supplied to you  by ASME for your paper.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{USE OF SI UNITS}
-
-An ASME paper should use SI units.  When preference is given to SI units, the U.S. customary units may be given in parentheses or omitted. When U.S. customary units are given preference, the SI equivalent {\em shall} be provided in parentheses or in a supplementary table.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{MATHEMATICS}
-
-Equations should be numbered consecutively beginning with (1) to the end of the paper, including any appendices.  The number should be enclosed in parentheses and set flush right in the column on the same line as the equation.  An extra line of space should be left above and below a displayed equation or formula. \LaTeX\ can automatically keep track of equation numbers in the paper and format almost any equation imaginable. An example is shown in Eqn.~(\ref{eq_ASME}). The number of a referenced equation in the text should be preceded by Eqn.\ unless the reference starts a sentence in which case Eqn.\ should be expanded to Equation.
-
-\begin{equation}
-f(t) = \int_{0_+}^t F(t) dt + \frac{d g(t)}{d t}
-\label{eq_ASME}
-\end{equation}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{FIGURES AND TABLES}
-
-All figures should be positioned at the top of the page where possible.  All figures should be numbered consecutively and captioned; the caption uses all capital letters, and centered under the figure as shown in Fig.~\ref{figure_ASME}. All text within the figure should be no smaller than 7~pt. There should be a minimum two line spaces between figures and text. The number of a referenced figure or table in the text should be preceded by Fig.\ or Tab.\ respectively unless the reference starts a sentence in which case Fig.\ or Tab.\ should be expanded to Figure or Table.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%%%
-\begin{figure}[t]
-\begin{center}
-\setlength{\unitlength}{0.012500in}%
-\begin{picture}(115,35)(255,545)
-\thicklines
-\put(255,545){\framebox(115,35){}}
-\put(275,560){Beautiful Figure}
-\end{picture}
-\end{center}
-\caption{THE FIGURE CAPTION USES CAPITAL LETTERS.}
-\label{figure_ASME}
-\end{figure}
-%%%%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%% begin table   %%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[t]
-\caption{THE TABLE CAPTION USES CAPITAL LETTERS, TOO.}
-\begin{center}
-\label{table_ASME}
-\begin{tabular}{c l l}
-& & \\ % put some space after the caption
-\hline
-Example & Time & Cost \\
-\hline
-1 & 12.5 & \$1,000 \\
-2 & 24 & \$2,000 \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-%%%%%%%%%%%%%%%% end table %%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-All tables should be numbered consecutively and  captioned; the caption should use all capital letters, and centered above the table as shown in Table~\ref{table_ASME}. The body of the table should be no smaller than 7 pt.  There should be a minimum two line spaces between tables and text.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{FOOTNOTES\protect\footnotemark}
-\footnotetext{Examine the input file, asme2e.tex, to see how a footnote is given in a head.}
-
-Footnotes are referenced with superscript numerals and are numbered consecutively from 1 to the end of the paper\footnote{Avoid footnotes if at all possible.}. Footnotes should appear at the bottom of the column in which they are referenced.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{CITING REFERENCES}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The ASME reference format is defined in the authors kit provided by the ASME.  The format is:
-
-\begin{quotation}
-{\em Text Citation}. Within the text, references should be cited in  numerical order according to their order of appearance.  The numbered reference citation should be enclosed in brackets.
-\end{quotation}
-
-The references must appear in the paper in the order that they were cited.  In addition, multiple citations (3 or more in the same brackets) must appear as a `` [1-3]''.  A complete definition of the ASME reference format can be found in the  ASME manual \cite{asmemanual}.
-
-The bibliography style required by the ASME is unsorted with entries appearing in the order in which the citations appear. If that were the only specification, the standard {\sc Bib}\TeX\ unsrt bibliography style could be used. Unfortunately, the bibliography style required by the ASME has additional requirements (last name followed by first name, periodical volume in boldface, periodical number inside parentheses, etc.) that are not part of the unsrt style. Therefore, to get ASME bibliography formatting, you must use the \verb+asmems4.bst+ bibliography style file with {\sc Bib}\TeX. This file is not part of the standard BibTeX distribution so you'll need to place the file someplace where LaTeX can find it (one possibility is in the same location as the file being typeset).
-
-With \LaTeX/{\sc Bib}\TeX, \LaTeX\ uses the citation format set by the class file and writes the citation information into the .aux file associated with the \LaTeX\ source. {\sc Bib}\TeX\ reads the .aux file and matches the citations to the entries in the bibliographic data base file specified in the \LaTeX\ source file by the \verb+\bibliography+ command. {\sc Bib}\TeX\ then writes the bibliography in accordance with the rules in the bibliography .bst style file to a .bbl file which \LaTeX\ merges with the source text.  A good description of the use of {\sc Bib}\TeX\ can be found in \cite{latex, goosens} (see how 2 references are handled?).  The following is an example of how three or more references \cite{latex, asmemanual,  goosens} show up using the \verb+asmems4.bst+ bibliography style file in conjunction with the \verb+asme2e.cls+ class file. Here are some more \cite{art, blt, ibk, icn, ips, mts, mis, pro, pts, trt, upd} which can be used to describe almost any sort of reference.
 
 % Here's where you specify the bibliography style file.
 % The full file name for the bibliography style file
@@ -236,24 +122,8 @@ ASME bibliography stype file \verb+asmems4.bst+.
 \end{acknowledgment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The bibliography is stored in an external database file
-% in the BibTeX format (file_name.bib).  The bibliography is
-% created by the following command and it will appear in this
-% position in the document. You may, of course, create your
-% own bibliography by using thebibliography environment as in
-%
-% \begin{thebibliography}{12}
-% ...
-% \bibitem{itemreference} D. E. Knudsen.
-% {\em 1966 World Bnus Almanac.}
-% {Permafrost Press, Novosibirsk.}
-% ...
-% \end{thebibliography}
 
-% Here's where you specify the bibliography database file.
-% The full file name of the bibliography database for this
-% article is asme2e.bib. The name for your database is up
-% to you.
+\endgroup
 \bibliography{asme2e,marco}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,12 +132,5 @@ ASME bibliography stype file \verb+asmems4.bst+.
 Avoid Appendices if possible.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Appendix B: Head of Second Appendix}
-\subsection*{Subsection head in appendix}
-The equation counter is not reset in an appendix and the numbers will
-follow one continual sequence from the beginning of the article to the very end as shown in the following example.
-\begin{equation}
-a = b + c.
-\end{equation}
 
 \end{document}
