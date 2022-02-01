@@ -1,23 +1,33 @@
-\section{OPTIMAL CONTROL PROBLEM}
+\section*{OPTIMAL CONTROL PROBLEM}
 
 Considering that the $\pnh$ adaptive refinement algorithm is applied to a general optimal control problem (OCP), in this section the structure and the notation of this kind of problem is analyzed.
 
 
 The generic form of an OCP is as follows
-\begin{equation}\label{OCP}
-	\begin{split}
-		&\underset{X,U}{\text{minimize}}\hspace{8mm} J = \int_{0}^{T}l(X(t),U(t))\,dt + E(X(T))\\
-		&\begin{split}
-			\text{subject to} \hspace{8mm} & \dot{X} -  f(X(t),U(t))			= 0, \hspace{5mm} t \in[0,T]\\
-			& h(X(t),U(t)) \leq 0,  \hspace{12mm} t \in[0,T]\\
-			& r(X(T),U(T)) \leq 0,
-		\end{split}		
-	\end{split}
-\end{equation}
+%\begin{equation}\label{OCP}
+%	\begin{split}
+%		&\underset{X,U}{\text{minimize}}\hspace{8mm} J = \int_{0}^{T}l(X(t),U(t))\,dt + E(X(T))\\
+%		&\begin{split}
+%			\text{subject to} \hspace{8mm} & \dot{X} -  f(X(t),U(t))			= 0, \hspace{5mm} t \in[0,T]\\
+%			& h(X(t),U(t)) \leq 0,  \hspace{11.5mm} t \in[0,T]\\
+%			& r(X(T),U(T)) \leq 0,
+%		\end{split}		
+%	\end{split}
+%\end{equation}
 
-where $t$ is the independent variable (time), $T$ is the terminal time, $X \in \Rnx$, $U \in \Rnu$ are the states,and the controls, respectively, and $f (\cdot)$ is the dynamic vector field.
 
-The OCP is characterized by an integral cost function, with a running cost $l$, a terminal cost $E(X(T))$, and three kinds of constraints: dynamics $\dot{X}-f(\cdot) \in \Rng$, inequality $h(\cdot) \in \Rnh$, and terminal constraints $r(\cdot) \in \Rnr$.
+\begin{subequations}\label{OCP}
+	\begin{align}
+	\underset{X,U}{\text{minimize}}\hspace{8mm} &J = \int_{0}^{T}g(X(t),U(t))\,dt + E(X(T)) \label{eq:cost}\\
+	\text{subject to} \hspace{8mm} &\dot{X} -  f(X(t),U(t)) = 0, \hspace{5mm} t \in[0,T] \label{eq:dyn}\\
+	& h(X(t),U(t)) \leq 0,  \hspace{11.5mm} t \in[0,T] \label{eq:path}\\
+	& r(X(T),U(T)) \leq 0, \label{eq:terminal}		
+	\end{align}
+\end{subequations}
+
+where $t$ is the independent variable (time), $T$ is the terminal time, $X \in \Rnx$, $U \in \Rnu$ are the states,and the controls, respectively, and $f (\cdot)$ is the dynamic vector field. 
+
+The OCP is characterized by an integral cost function, with a running cost $g$, a terminal cost $E(X(T))$, and three kinds of constraints: dynamics $\dot{X}-f(\cdot) \in \Rnx$, inequality $h(\cdot) \in \Rnh$, and terminal constraints $r(\cdot) \in \Rnr$.
 The solution of the OCP  consists of the controls $U^{*}(t)$ and the states $X^*(t)$  minimizing the integral cost function while satisfying the above constraints.
 
 

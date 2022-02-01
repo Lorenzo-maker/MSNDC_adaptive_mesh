@@ -1,27 +1,85 @@
 \section*{LEGENDRE-GAUSS COLLOCATION METHOD WITH DIFFERENT STATES DEGREE}
-The $\pnh$ form of the continous optimal control problem of previous section is discretized using the \emph{direct collocation} method at Gauss-Legendre collocation points. In \emph{direct collocation} method the time horizon is discretized on a fixed mesh, where the generic interval is called $S_{k} = [T_{k-1}, T_{k}]$, and the mesh step interval $h_{k} = T_{k-1} - T_{k}$ (with $k \inset N$). The values at mesh points (nodal values) are indicated by $X_{k}$, $U_{k}$ and $T_{k}$, for  states, controls and time, respectively.
+The $\pnh$ form of the continous optimal control problem of previous section is discretized using the \emph{direct collocation} method at Gauss-Legendre collocation points.In this process the original OCP becomes a \emph{Nonlinear Progam} (NLP). In \emph{direct collocation} method the time horizon is discretized on a fixed mesh, where the generic interval is called $S_{k} = [T_{k-1}, T_{k}]$, and the mesh step interval $h_{k} = T_{k-1} - T_{k}$ (with $k \inset N$). The values at mesh points (nodal values) are indicated by $X_{k}$, $U_{k}$ and $T_{k}$, for  states, controls and time, respectively.
 The parametrization of the controls on the same mesh is chosen as piecewise constant, which yield on each interval $[T_{k-1}, T_{k}]$ to a constant control $U(t) = U_{k}$.
 
 For what concerns the states in $S_{k}$, the classical approach that appears in literature, approximate them by a polynomial of the same degree $d$.
 Instead in this paper we differentiate this degree for each state and for each mesh interval. Hence the $i$-th state on the $S_{k}$ subinterval is defined by the following polynomial of degree $\dki$
 
+\begin{subequations}
+	\begin{align}
+	&\Xkidki (\tau) = \sum_{m=1}^{\dkip} \Lmdki(\tau)\xkim, \hspace{5mm} \text{where} \label{Xpoly}\\
+	&\Lmdki = \prod_{r=1, r\neq m}^{\dkip} \dfrac{\tau - \bartaudki_{r}}{\bartaudki_{m} - \bartaudki_{r}} \label{BLagrange}
+	\end{align}
+\end{subequations}
+
+where $\dkip = \dki + 1$ and $\tau \in [0,1]$ is the normalize time on $S_k$, hence $T_k(\tau) = T_{k-1} + h_k\tau$.
+Instead $\Lmdki (\tau)$ are the basis of Lagrange polynomials of degree $\dki$. For the considered state, they are calculated considering the points $\bartaudki = [\tau_{0}, \taudki]$, where $\tau_{0} = 0$ and $\taudki$ are the $\dki$ Gauss-Legendre collocation points. Therefore in this paper notation, $\taudki$  represents the vector of collocation points, instead $\bartaudki$ represents the augmented vector obtained by adding $\tau_{0}$ as first element.
+In particular, $\bartaudki_{j}$ indicates the $j$-th component of $\bartaudki$ vector.
+Finally, $\xkim$ is the values of the state polynomial at $\bartaudki_{m}$.
+
+In order to apply collocation equations, necessary to impose the respect of system dynamics, the derivative of the generic polynomial $\Xkidki (\tau)$ is defined,
+
 \begin{equation}
-\Xkidki (\tau) = \sum_{m=0}^{\dki} \Lmdki(\tau)\xkim \,\text{,} 
+\Vki (\tau) = \frac{d}{d\tau}\Big(\Xkidki(\tau)\Big) = \sum_{m=1}^{\dkip}\Big(\frac{d}{d\tau}\Lmdki(\tau)\Big)\xkim
 \end{equation}
 
+Moreover it is useful to define another quantity $\Xkd (\tau)$ as
 
-where $\tau \in [0,1]$ is the normalize time on $S_k$, hence $T_k(\tau) = T_{k-1} + h_k\tau$.
-Instead $\Lmdki (\tau)$ are the basis of Lagrange polynomials of degree $\dki$. For the considered state, they are calculated considering the points $\bartaudki = [\tau_{0}, \taudki]$, where $\tau_{0} = 0$ and $\taudki$ are the $\dki$ Gauss-Legendre collocation points.
-After all, $\xkim$ are the values of the state polynomial in the $\bartaudki$ points.
+\begin{equation}
+\Xkd(\tau) =  
+\begin{bmatrix}
+\Xkdi{1}(\tau) \\
+\vdots \\
+\Xkdi{i}(\tau)\\
+\vdots \\
+\Xkdi{nx}(\tau)
+\end{bmatrix}
+\end{equation}
 
-Definiti stati e controlli è necessari definire la derivata dei polinomi degli stati in modo da poter scrivere le equazioni di collocazione.
-EQ....
+hence $\Xkd (\tau)$ represents in the generic $S_k$ interval the evaluation for a given $\tau$ of all polynomials state of different degree ($\dkg{1}, \dots, \dkg{i}, \dots, \dkg{nx}$).
 
-E' inolte utile definire la quantità Xkd....
+Eq.~(\ref{eq:dyn}) with \emph{direct collocation} becomes for the $i$-th state on the $k$-th interval
 
+\begin{equation}\label{eq:colloc}
+\Vki(\taujdki) = f_i(\Xkd(\taujdki),  U_k) \hk, \hspace{5mm} j = 1, \dots, \dki
+\end{equation}
 
+where $\taujdki$ is the $j$-th collocation point for the $i$-th state and $f_i(\cdot)$ is the $i$-th component of the vector field that represents system dynamics. These equations have to be written for all the state ($i = 1, \dots, n_x$).
 
+To completely define the state polynomial, it is necessary to add as equality constraint of the resulting NLP the continuity equations that for the $S_k$ interval are
 
+\begin{equation}\label{eq:continuity}
+\Xkd(1) - X_k = 0
+\end{equation}
 
+The generic path constraints of Eq.~(\ref{eq:path}), always on $S_k$, becomes
+\begin{equation}\label{eq:nlpath}
+h(X_k, U_k) \leq 0
+\end{equation}
 
+Instead the terminal constraints of Eq.~(\ref{eq:terminal}) is
+\begin{equation}\label{eq:npterminal}
+	r(X_N, U_N) \leq 0.
+\end{equation}
 
+For what concerns the cost function, the integral of Eq.~(\ref{eq:cost}) is numerical approximated with a quadrature scheme, that consider for each interval, the collocation points of the state with the highest degree. In this way the best integral approximation is guarantee. Hence the running cost $g(t)$ can be rewritten in the $S_k$ interval as
+
+\begin{subequations}
+	\begin{align}
+	& g_k(\tau) = \sum_{m=1}^{\bardk} \lmbdm(\tau)\gkm, \hspace{5mm} \text{where}\\
+	&  \lmbdm = \prod_{r=1, r\neq m}^{\bardk} \dfrac{\tau - \taubardk_{r}}{\taubardk_{m} - \taubardk_{r}},
+	\end{align}
+\end{subequations}
+
+where $\bardk = \max\limits_{i= 1, \dots, n_x}(\dki)$, $\bardkm = \bardk -1$, $\lmbdm$ are the basis of Lagrange polynomials of degree $\bardkm$, $\taubardk$ are the $\bardk$ Gauss-Legendre collocation points and $\gkm$ is the value of $g_k (\tau)$ at $\taubardk_{m}$.
+
+From this polynomial approximation the numerical integral $J_k$ of the running cost function $g(t)$ in the $k$-th element can be obtained from the following equation
+
+\begin{equation}
+	J_k = \sum_{m=1}^{\bardk}\Big(\int_{0}^{1}\lmbd(\tau)d\tau\Big)\gkm \hk
+\end{equation}
+
+With the equations shown in this section it is possible to transform the original OCP into an NLP by writing them for $k = 1, \dots, N$, and considering that the total cost function that has to be minimized is given by $\sum_{k=1}^{N}J_k$.
+
+It is worth noting that unlike~\cite{Patterson:OCAM:2015} where the dynamics is collocated using the \emph{implicit integral form}, here it is done in \emph{differential form}.
+Furthermore, even if the collocation method was generalized by using a different degree for the polynomial approximation of $i$-th state on the $k$-th mesh interval, by choosing $\dki = d$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$, the classical collocation method can be implemented.

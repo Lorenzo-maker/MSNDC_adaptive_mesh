@@ -22,7 +22,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{relsize}
-
+\input{mymacros}
 
 %% The class has several options
 %  onecolumn/twocolumn - format for one or two columns per page
@@ -55,7 +55,7 @@
 
 %%% You need to remove 'DRAFT: ' in the title for the final submitted version.
 %\title{DRAFT: AN ARTICLE CREATED USING \LaTeX2\raisebox{-.3ex}{$\epsilon$}\ IN ASME FORMAT}
-\title{A $p^n h$-adaptive refinement procedure\\
+\title{A \MakeLowercase{$\pnh$}-adaptive refinement procedure\\
 for numerical optimal control problems}
 %%% for the discussion section only
 %\usepackage{helvet}
@@ -90,27 +90,27 @@ for numerical optimal control problems}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \maketitle
-\begingroup
-\let\clearpage\relax
-\include{mymacros}
+%\begingroup
+%\let\clearpage\relax
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{abstract}
+\input{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{Introduction}
+\input{Introduction}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{OCP}
+\input{OCP}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{collocation}
+\input{collocation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{adaptive_method}
+\input{adaptive_method}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{example}
+\input{example}
 
 
 % Here's where you specify the bibliography style file.
@@ -127,7 +127,7 @@ ASME bibliography stype file \verb+asmems4.bst+.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\endgroup
+%\endgroup
 \bibliography{marco}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
