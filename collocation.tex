@@ -25,30 +25,46 @@ Moreover, it is useful to define quantity $\Xkd (\tau)$ as
 \Xkd(\tau) =
 \begin{bmatrix}
 \Xkdi{1}(\tau)\, \cdots \, \Xkdi{i}(\tau) \, \cdots\, 
-\Xkdi{nx}(\tau)
+\Xkdi{n_x}(\tau)
 \end{bmatrix}^T
 \end{equation}
-which represents, in the generic interval $S_k$ and for a given $\tau$, the evaluation of all state polynomials each of its own degree ($\dkg{1}, \dots, \dkg{i}, \dots, \dkg{nx}$).
+which represents, in the generic interval $S_k$ and for a given $\tau$, the evaluation of all state polynomials each of its own degree ($\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_{x}}$).
 
 In \emph{direct collocation} Eq.~(\ref{eq:dyn}), for the $i$-th state on the $k$-th interval, reads as
 \begin{equation}\label{eq:colloc}
 \Vki(\taujdki) = f_i(\Xkd(\taujdki),  U_k) \hk, \hspace{5mm} j = 1, \dots, \dki
 \end{equation}
-where $\taujdki$ is the $j$-th collocation point for the $i$-th state and $f_i(\cdot)$ is the $i$-th component of the vector field representing system dynamics. Eqs.~\eqref{eq:colloc} have to be imposed for all state components ($i = 1, \dots, n_x$).
+where $\taujdki$ is the $j$-th collocation point for the $i$-th state and $f_i(\cdot)$ is the $i$-th component of the vector field representing system dynamics. Eqs.~\eqref{eq:colloc} have to be imposed for all state components ($i = 1, \dots, n_x$) and for all mesh interval ($k = 1, \dots, N$).
 
-To completely define the state polynomial, it is necessary to add the continuity equations that for the $S_k$ interval as equality constraint of the resulting NLP  are
+To completely define the state polynomial, it is necessary to add the continuity equations  as equality constraint of the resulting NLP.    
 \begin{equation}\label{eq:continuity}
-\Xkd(1) - X_k = 0
+\Xkd(1) - X_k = 0, \hspace{5mm} k = 1, \dots, N-1
 \end{equation}
 
+where the nodal values of the state are linked to the $\xkim$ by the following equation
+\begin{equation}
+X_k = [\xkpuu{1}, \dots, \xkpuu{i}, \dots, \xkpuu{n_{x}}], \hspace{5mm} k = 1, \dots, N-1
+\end{equation}
+
+Instead for $k = 1$ and for $k = N$, the following boundaries conditions are imposed
+\begin{subequations}
+	\begin{align}
+	& X_{0} = \bar{X}_{0} \label{eq:intial},\\
+	& X_{N}^{d}(1) = X_N \label{eq:final},
+	\end{align}
+\end{subequations} 
+
+where $X_0 = [\xuuu{1}, \dots, \xuuu{i}, \dots, \xuuu{n_{x}}]$, $\bar{X}_{0}$ is an assigned initial value and $X_{N}$ is the final nodal value.
+ 
+ 
 The generic path constraints of Eq.~(\ref{eq:path}), always on $S_k$, becomes
 \begin{equation}\label{eq:nlpath}
-h(X_k, U_k) \leq 0
+h(X_k, U_k) \leq 0. \hspace{5mm} k = 1, \dots, N
 \end{equation}
 
 Instead the terminal constraints of Eq.~(\ref{eq:terminal}) is
 \begin{equation}\label{eq:npterminal}
-	r(X_N, U_N) \leq 0.
+	r(X_N, U_N) \leq 0. \hspace{5mm} k = 1, \dots, N
 \end{equation}
 
 For what concerns the cost function, the integral of Eq.~(\ref{eq:cost}) is numerical approximated with a quadrature scheme, that consider for each interval, the collocation points of the state with the highest degree. In this way the best integral approximation is guarantee. Hence the running cost $g(t)$ can be rewritten in the $S_k$ interval as

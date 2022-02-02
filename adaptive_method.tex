@@ -56,7 +56,7 @@ Hence, $\dkis$ is the new polynomial degree that has to be chosen, for the $i$-t
 
 
 \begin{algorithm}
-\caption{Step 1 for $\pnh$ mesh refinement}\label{alg:step1}
+\caption{Exploration: Step 1 of the $\pnh$ mesh refinement}\label{alg:step1}
 	\begin{algorithmic}[1]
 		\For {$i = 1$ to $n_x$}
 			\If{$\max\limits_{j= 1, \dots, \dkip} (\ekij) \leq \epsilon$}
@@ -75,28 +75,27 @@ Hence, $\dkis$ is the new polynomial degree that has to be chosen, for the $i$-t
 	\end{algorithmic}
 \end{algorithm}
 
-In Alg.~\ref{alg:step1} the first step of the proposed refine method is explained. After Alg.~\ref{alg:step1} two vectorial quantities are defined $\Dks = [\dksn{1}, \dots, \dksn{i}, \dots, \dksn{n_x}]$ and $\Dk = [\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_x}]$. Then the second step, shown in Alg.~\ref{alg:step2} is performed.
+In Alg.~\ref{alg:step1} the first step of the proposed refine method is explained. After Alg.~\ref{alg:step1} two vectorial quantities are defined $\Dks = [\dksn{1}, \dots, \dksn{i}, \dots, \dksn{n_x}]$ and $\Dk = [\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_x}]$. Then the refinement step, shown in Alg.~\ref{alg:step2} is performed.
 
 \begin{algorithm}
-	\caption{Step 2 for $\pnh$ mesh refinement}\label{alg:step2}
+	\caption{Refinement: Step 2 of the $\pnh$ mesh refinement}\label{alg:step2}
 	\begin{algorithmic}[1]
 		\If {$\max\limits_{i= 1, \dots, n_x}(\Bki) = 1$}
 			\If {$\Dks = \Dk$}
 				\State stop algorithm, convergence reached	
 			\Else
 				\For {$i = 1$ to $n_x$}
-					\State $\dki = \dkis$
+					\State $\dki = \dkis$ \Comment p-refinement
 				\EndFor
 			\EndIf
 		\Else
 			\For {$i = 1$ to $n_x$}
 				\State $\dki = \dki$
-				\State $\Bki = \max\limits_{i= 1, \dots, n_x}(\Bki)$
+				\State $\Bki = \max\limits_{i= 1, \dots, n_x}(\Bki)$ \Comment h-refinement
 			\EndFor		
 		\EndIf
 	\end{algorithmic}
 \end{algorithm}
-
 
 
 The new mesh for the next NLP, is encoded in the quantity $\dki$ and $\Bki$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$.
