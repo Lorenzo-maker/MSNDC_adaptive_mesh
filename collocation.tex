@@ -1,53 +1,42 @@
 \section*{LEGENDRE-GAUSS COLLOCATION METHOD WITH DIFFERENT STATES DEGREE}
-The $\pnh$ form of the continous optimal control problem of previous section is discretized using the \emph{direct collocation} method at Gauss-Legendre collocation points.In this process the original OCP becomes a \emph{Nonlinear Progam} (NLP). In \emph{direct collocation} method the time horizon is discretized on a fixed mesh, where the generic interval is called $S_{k} = [T_{k-1}, T_{k}]$, and the mesh step interval $h_{k} = T_{k-1} - T_{k}$ (with $k \inset N$). The values at mesh points (nodal values) are indicated by $X_{k}$, $U_{k}$ and $T_{k}$, for  states, controls and time, respectively.
-The parametrization of the controls on the same mesh is chosen as piecewise constant, which yield on each interval $[T_{k-1}, T_{k}]$ to a constant control $U(t) = U_{k}$.
+The %$\pnh$ form of the 
+continuous optimal control problem introduced in the previous section is discretized using the \emph{direct collocation} method at Gauss-Legendre collocation points. As a consequence, the original OCP becomes a \emph{Nonlinear Program} (NLP). In \emph{direct collocation} method the time horizon is discretized on a fixed mesh, where the generic interval is denoted as $S_{k} = [T_{k-1}, T_{k}]$, and the mesh step interval is $h_{k} = T_{k-1} - T_{k}$ (with $k \inset N$). The values at mesh points (nodal values) are indicated by $X_{k}$, $U_{k}$ and $T_{k}$, for  states, controls and time, respectively.
+The parametrization of the controls on the same mesh is chosen as piecewise constant, which yields to a constant control $U(t) = U_{k}$ on each interval $S_k$.
 
-For what concerns the states in $S_{k}$, the classical approach that appears in literature, approximate them by a polynomial of the same degree $d$.
-Instead in this paper we differentiate this degree for each state and for each mesh interval. Hence the $i$-th state on the $S_{k}$ subinterval is defined by the following polynomial of degree $\dki$
-
+For what concerns the states in $S_{k}$, classical approaches appearing in the literature approximate all of them by polynomials of the same degree $d$.
+Instead, in this paper we can pick different degrees for each state and for each mesh interval. Hence, the $i$-th state on the $S_{k}$ subinterval is approximated by a polynomial of degree $\dki$ defined as follows
 \begin{subequations}
 	\begin{align}
 	&\Xkidki (\tau) = \sum_{m=1}^{\dkip} \Lmdki(\tau)\xkim, \hspace{5mm} \text{where} \label{Xpoly}\\
 	&\Lmdki (\tau) = \prod_{r=1, r\neq m}^{\dkip} \dfrac{\tau - \bartaudki_{r}}{\bartaudki_{m} - \bartaudki_{r}} \label{BLagrange}
 	\end{align}
 \end{subequations}
-
-where $\dkip = \dki + 1$ and $\tau \in [0,1]$ is the normalize time on $S_k$, hence $T_k(\tau) = T_{k-1} + h_k\tau$.
-Instead $\Lmdki (\tau)$ are the basis of Lagrange polynomials, in particular, the apex indicates that they have degree $\dki$. For the considered state, they are calculated considering the points $\bartaudki = [\tau_{0}, \taudki]$, where $\tau_{0} = 0$ and $\taudki$ are the $\dki$ Gauss-Legendre collocation points. Therefore in this paper notation, $\taudki$  represents the vector of collocation points, instead $\bartaudki$ represents the augmented vector obtained by adding $\tau_{0}$ as first element.
-In particular, $\bartaudki_{j}$ indicates the $j$-th component of $\bartaudki$ vector.
+where $\dkip = \dki + 1$, $\tau \in [0,1]$ is the normalized time on $S_k$ such that $T_k(\tau) = T_{k-1} + h_k\tau$.
+Bases $\Lmdki (\tau)$ are the Lagrange polynomials of degree $\dki$, calculated considering the points $\bartaudki = [\tau_{0}, \taudki]$, where $\tau_{0} = 0$ and $\taudki$ are the $\dki$ Gauss-Legendre collocation points. In our notation, $\taudki$  represents the vector of collocation points, $\bartaudki$ represents the \emph{augmented} vector obtained by adding $\tau_{0}$ as the first element.
+Then, $\bartaudki_{j}$ indicates the $j$-th component of $\bartaudki$ vector.
 Finally, $\xkim$ is the values of the state polynomial at $\bartaudki_{m}$.
 
-In order to apply collocation equations, necessary to impose the respect of system dynamics, the derivative of the generic polynomial $\Xkidki (\tau)$ is defined,
-
+In order to apply collocation equations, ensuring that the system dynamics is satisfied at discrete points, the derivative of the generic polynomial $\Xkidki (\tau)$ comes into play, which is defined as
 \begin{equation}
 \Vki (\tau) = \frac{d}{d\tau}\Big(\Xkidki(\tau)\Big) = \sum_{m=1}^{\dkip}\Big(\frac{d}{d\tau}\Lmdki(\tau)\Big)\xkim
 \end{equation}
-
-Moreover it is useful to define another quantity $\Xkd (\tau)$ as
-
+Moreover, it is useful to define quantity $\Xkd (\tau)$ as
 \begin{equation}
-\Xkd(\tau) =  
+\Xkd(\tau) =
 \begin{bmatrix}
-\Xkdi{1}(\tau) \\
-\vdots \\
-\Xkdi{i}(\tau)\\
-\vdots \\
+\Xkdi{1}(\tau)\, \cdots \, \Xkdi{i}(\tau) \, \cdots\, 
 \Xkdi{nx}(\tau)
-\end{bmatrix}
+\end{bmatrix}^T
 \end{equation}
+which represents, in the generic interval $S_k$ and for a given $\tau$, the evaluation of all state polynomials each of its own degree ($\dkg{1}, \dots, \dkg{i}, \dots, \dkg{nx}$).
 
-hence $\Xkd (\tau)$ represents in the generic $S_k$ interval the evaluation for a given $\tau$ of all polynomials state of different degree ($\dkg{1}, \dots, \dkg{i}, \dots, \dkg{nx}$).
-
-Eq.~(\ref{eq:dyn}) with \emph{direct collocation} becomes for the $i$-th state on the $k$-th interval
-
+In \emph{direct collocation} Eq.~(\ref{eq:dyn}), for the $i$-th state on the $k$-th interval, reads as
 \begin{equation}\label{eq:colloc}
 \Vki(\taujdki) = f_i(\Xkd(\taujdki),  U_k) \hk, \hspace{5mm} j = 1, \dots, \dki
 \end{equation}
+where $\taujdki$ is the $j$-th collocation point for the $i$-th state and $f_i(\cdot)$ is the $i$-th component of the vector field representing system dynamics. Eqs.~\eqref{eq:colloc} have to be imposed for all state components ($i = 1, \dots, n_x$).
 
-where $\taujdki$ is the $j$-th collocation point for the $i$-th state and $f_i(\cdot)$ is the $i$-th component of the vector field that represents system dynamics. These equations have to be written for all the state ($i = 1, \dots, n_x$).
-
-To completely define the state polynomial, it is necessary to add as equality constraint of the resulting NLP the continuity equations that for the $S_k$ interval are
-
+To completely define the state polynomial, it is necessary to add the continuity equations that for the $S_k$ interval as equality constraint of the resulting NLP  are
 \begin{equation}\label{eq:continuity}
 \Xkd(1) - X_k = 0
 \end{equation}
