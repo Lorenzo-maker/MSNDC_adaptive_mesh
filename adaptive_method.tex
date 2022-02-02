@@ -1,7 +1,7 @@
 \section*{$p^n h$-ADAPTIVE MESH REFINEMENT METHOD}
 
 In this section a $\pnh$-adaptive mesh refinement method is developed. In particular, the generic OCP problem is first transcribed into an NLP using the \emph{direct collocation} method, explained above, then the mesh refinement method is applied to the obtained optimal solution.
-The $\pnh$ method explained here, is very closed to the one explained in~\cite{Patterson:OCAM:2015}. In particular, the method for estimating the error in the current solution is equal to the cited article. The key aspect that differentiate this work from the  work of Patterson et al. is the refinement strategy.
+The $\pnh$ method explained here, is very closed to the one explained in~\cite{Patterson:OCAM:2015}. In particular, the method for estimating the error in the current solution is very close to the cited article. The key aspect that differentiate this work from the  work of Patterson et al. is the refinement strategy.
 In~\cite{Patterson:OCAM:2015}, the adjustment of polynomial degree is made in a way that all states are represented by the same degree. Instead, in this work the $p$-refinement is differentiate for each state. Then, in both papers if the degree approach to reach convergence failed, the mesh spacing is adjusted.
 
 
@@ -75,7 +75,7 @@ Hence, $\dkis$ is the new polynomial degree that has to be chosen, for the $i$-t
 	\end{algorithmic}
 \end{algorithm}
 
-In Alg.~\ref{alg:step1} the first step of the proposed refine method is explained. After Alg.~\ref{alg:step1} two vectorial quantities are defined $\Dks = [\dksn{1}, \dots, \dksn{i}, \dots, \dksn{n_x}]$ and $\Dk = [\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_x}]$. Then the refinement step, shown in Alg.~\ref{alg:step2} is performed.
+In Alg.~\ref{alg:step1} the first step of the proposed refine method is explained. In particular, the quantity $P_{k,i}$ is calculated referring to the method of~\cite{Patterson:OCAM:2015} which is in accordance with the convergence theory summarized in~\cite{Hou:GNC:2012,Hou:PHD:2013}.  After Alg.~\ref{alg:step1} two vectorial quantities are defined $\Dks = [\dksn{1}, \dots, \dksn{i}, \dots, \dksn{n_x}]$ and $\Dk = [\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_x}]$. Then the refinement step, shown in Alg.~\ref{alg:step2} is performed.
 
 \begin{algorithm}
 	\caption{Refinement: Step 2 of the $\pnh$ mesh refinement}\label{alg:step2}
