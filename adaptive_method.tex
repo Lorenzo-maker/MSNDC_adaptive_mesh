@@ -1,13 +1,47 @@
 \section*{$p^n h$-ADAPTIVE MESH REFINEMENT METHOD}
-
-Metodo di mesh refinement con pn-h
-
+ 
+In this section a $\pnh$-adaptive mesh refinement method is developed. In particular, the generic OCP problem is first transcribed into an NLP using the \emph{direct collocation} method, explained above, then the mesh refinement method is applied to the obtained optimal solution.
+The $\pnh$ method explained here, is very closed to the one explained in~\cite{Patterson:OCAM:2015}. In particular, the method for estimating the error in the current solution is equal to the cited article. The key aspect that differentiate this work from the  work of Patterson et al. is the refinement strategy.
+In~\cite{Patterson:OCAM:2015}, the adjustment of polynomial degree is made in a way that all states are represented by the same degree. Instead, in this work the $p$-refinement is differentiate for each state. Then, in both papers if the degree approach to reach convergence failed, the mesh spacing is adjusted.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Error Estimate}
 
-come calcolo l'errore
+In this section, an estimate of the relative error in the solution within a mesh interval is derived. The error is calculated in each mesh interval, for each state.
+The key idea is to compare the optimal state obtained from the NLP solution, with a more accurate approximation of the state.
+
+To explain in details this aspect, consider the $i$-th state on the generic $S_k$ mesh interval.
+The solution of NLP gives as output a polynomial approximation of the state, that has been called $\Xkidki (\tau)$.
+If the problem solution is suppose to be smooth, a polynomial approximation obtained with an increase number of Gauss-Legendre points should yield a state that more accurately satisfies the dynamics.
+Suppose that the error has to be estimated at a set of  $\dkip = \dki + 1$ collocation points, that consistent whit the proposed notation are indicated by $\taudkip$.
+The values of the NLP solution in these points are denoted by $\Xkidki (\taudkip_j)$ for $j = 1, \dots, \dkip$.
+Then the improved approximation of the state is constructed by using the value of the right-hand side of the dynamics at these new Gauss-Legendre points.
+Let $\barXkidkip (\tau)$ be a polynomial of degree $\dkip$ that is defined for the $i$-th state on the $S_k$ interval. If the derivative of this polynomial matches the dynamics at each $\taudkip$ collocation points, $\barXkidkip (\tau)$ can be obtained by a numerical integration using the resulting quadrature scheme
+
+\begin{subequations}
+\begin{align}
+	&\barXkidkip (\tau) = \sum_{m=1}^{\dkip}\Big(\int_{0}^{\tau}\lmdki (\tau)d\tau\Big) f_i\Big(\Xkd(\taudkip_m), U_k\Big), \hspace{2mm} \text{where} \label{eq:barX}\\
+	&  \lmdki (\tau) = \prod_{r=1, r\neq m}^{\dkip} \dfrac{\tau - \taudkip_r}{\taudkip_m - \taudkip_r}. \label{eq:meshlm}
+\end{align}
+
+\end{subequations}
+
+Hence $\barXkidkip (\tau)$ represents the improved approximation and its values in $\taudkip$ will be denoted by $\barXkidkip (\taudkip_j)$ for $j = 1, \dots, \dkip$.
+
+Defined these quantities it is possible to evaluate the absolute and relative errors for each $\taudkip_j$ of the $i$-th state on the $k$-th interval
+
+\begin{subequations}
+	\begin{align}
+	&\Ekij = \Big|\barXkidkip (\taudkip_j) - \Xkidki (\taudkip_j)\Big| \label{eq:absolute}\\
+	&\ekij = \dfrac{\Ekij}{1 + \max\limits_{j= 1, \dots, \dkip} \Big| \Xkidki (\taudkip_j)\Big|} \label{eq:relative} 
+	\end{align}
+\end{subequations}
+
+where Eq.~(\ref{eq:absolute}) and Eq.~(\ref{eq:relative}) are the absolute and the relative error in the $\taudkip_j$, respectively.
+
+The relative error is use in the next section to implement the $\pnh$ strategy.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Algorithm}
 
