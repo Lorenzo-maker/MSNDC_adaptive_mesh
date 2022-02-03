@@ -1,5 +1,10 @@
 \section*{EXAMPLES}
-Introduzione agli esempi 
+In this section three different example are shown. The purpose of these examples is to empirically demonstrate that the method proposed in this article leads to the same results of the one explained in~\cite{Patterson:OCAM:2015}, with the advantage of an increased computational efficiency for the final enhanced mesh with solution accuracy still within the specified tolerance. In fact, by allowing to increase the degree of the approximating polynomial independently for each state, our method effectively chooses to raise them frugally, this reducing the overall number of NLP variables needed with clear benefits in terms of reduced CPU time, memory usage and reduced risk of being trapped in local minima.
+For what concerns the details, each problem is transcribed in its first NLP by choosing $N = 20$ mesh interval and assigning a degree $\dki = 2$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$. The mesh refinement algorithm is then applied with $d_{min} = 2$, $d_{max} = 8$ and searching a tolerance $\epsilon = 1\mathrm{e}{-3}$.
+
+Each transcribed optimal control problem is coded in a scripting environment using the
+Matlab interface to the open-source CasADi framework~\cite{casadi:MPC:2019}, which can perform AD (automatic differentiation) and provides building blocks to efficiently formulate and solve large-scale optimization problems. Then the interior-point solver IPOPT~\cite{Biegler:CCE:2009} is adopted to solve the NLP on a laptop with 2.30GHz Intel(R) Core(TM) i7-10875H CPU and 32 GB di RAM.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Van Der Pol}
