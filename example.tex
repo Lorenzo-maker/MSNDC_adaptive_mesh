@@ -4,12 +4,13 @@ For what concerns the details, each problem is transcribed in its first NLP by c
 
 Each transcribed optimal control problem is coded in a scripting environment using the
 Matlab interface to the open-source CasADi framework~\cite{casadi:MPC:2019}, which can perform AD (automatic differentiation) and provides building blocks to efficiently formulate and solve large-scale optimization problems. Then the interior-point solver IPOPT~\cite{Biegler:CCE:2009} is adopted to solve the NLP on a laptop with 2.30GHz Intel(R) Core(TM) i7-10875H CPU and 32 GB di RAM.
+It is worth to notice that in the following results, the notation $ph$ algorithm is used to denote the Patterson et al.~\cite{Patterson:OCAM:2015} mesh refinement method.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Van Der Pol}
 Considering the following optimal control problem namely
-driving a \emph{Van der Pol} oscillator to the origin, taken from reference [],
+driving a \emph{Van der Pol} oscillator to the origin, taken from reference~\cite{casadi:DOC:2018},
 
 \begin{subequations}\label{eq:vanderpol}
 	\begin{align}
@@ -27,13 +28,29 @@ driving a \emph{Van der Pol} oscillator to the origin, taken from reference [],
 
 where $x_1$ and $x_2$ are the two state component (hence $X(t) = [x_1(t), x_2(t)]$), $u$ indicates the element of $U$ (which has dimension $1$), and the dynamics constraints and the initial conditions have been shown explicitly for each state component. Therefore $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
 
+In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the second one ($x_2$), respectively. Comparing with the red line, which represents the initial degree, each method increases the states degree. In particular, as explained before the green line is equal for the two figures, instead the blue ones are different, this means that each state has a different final polynomial approximation. Furthermore, considering the original $S_k$ steps delimited by the dashed gray lines, observing where the green and blue markers increase, it is possible to notice where an $h$-strategy is adopted.
 \begin{figure}
 	\centering
-	\includegraphics[trim={4cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/pnh1_vanderpol}
-	\caption{}
-	\label{fig:pnhvanderpol}
+	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/pnh1_vanderpol}
+	\caption{POLYNOMIAL DEGREE OF SECOND STATE ($x_{1}$) FOR THE INITIAL MESH (RED) $\pnh$ ALGORITHM (BLUE) AND $ph$ ALGORITHM (GREEN).}
+	\label{fig:pnh1vanderpol}
 \end{figure}
 
+\begin{figure}
+	\centering
+	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/pnh2_vanderpol}
+	\caption{POLYNOMIAL DEGREE OF SECOND STATE ($x_{2}$) FOR THE INITIAL MESH (RED) $\pnh$ ALGORITHM (BLUE) AND $ph$ ALGORITHM (GREEN).}
+	\label{fig:pnh2vanderpol}
+\end{figure}
+
+In Fig.~\ref{fig:vanderpolstates} the states profile obtained with the $\pnh$ final mesh is shown. In this case the dashed gray lines delimit the final $S_k$ interval. In particular, the nodal values are shown in blue, instead the collocation points in red. That figure shows clearly that the $\pnh$ mesh refinement method places many more collocation and mesh points where the states have greater variations.
+
+\begin{figure}
+	\centering
+	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/vanderpol_states}
+	\caption{OPTIMAL STATES PROFILE OBTAINED WITH THE $\pnh$ METHOD.}
+	\label{fig:vanderpolstates}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Rolling Disk}
