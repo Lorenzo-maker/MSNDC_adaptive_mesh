@@ -19,7 +19,7 @@ The generic form of an OCP is as follows
 \begin{subequations}\label{OCP}
 	\begin{align}
 	\underset{X,U}{\text{minimize}}\hspace{8mm} &J = \int_{0}^{T}g(X(t),U(t))\,dt + E(X(T)) \label{eq:cost}\\
-	\text{subject to} \hspace{8mm} &\dot{X} -  f(X(t),U(t)) = 0, \hspace{5mm} t \in[0,T] \label{eq:dyn}\\
+	\text{subject to} \hspace{8mm} &\dot{X}(t) -  f(X(t),U(t)) = 0, \hspace{5mm} t \in[0,T] \label{eq:dyn}\\
 	& h(X(t),U(t)) \leq 0,  \hspace{11.5mm} t \in[0,T] \label{eq:path}\\
 	& r(X(T),U(T)) \leq 0, \label{eq:terminal}		
 	\end{align}

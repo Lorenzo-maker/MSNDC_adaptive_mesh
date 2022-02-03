@@ -8,7 +8,32 @@ Matlab interface to the open-source CasADi framework~\cite{casadi:MPC:2019}, whi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Van Der Pol}
-Esempio Van der Pol
+Considering the following optimal control problem namely
+driving a \emph{Van der Pol} oscillator to the origin, taken from reference [],
+
+\begin{subequations}\label{eq:vanderpol}
+	\begin{align}
+	\underset{X \in \mathbb{R}^{2}, \, U \in \mathbb{R}}{\text{minimize}}\hspace{8mm} 
+	&J = \int_{0}^{T}(x_1^{2} + x_2^{2} + u^{2})\,dt  \label{eq:vancost}\\
+	\text{subject to} \hspace{8mm} 
+	& \dot{x}_1 = (1 - x_2^{2})x_{1} - x_2 + u \hspace{5mm} t \in[0,T] \label{eq:vandyn1}\\
+	& \dot{x}_2 = x_1 \hspace{28.5mm} t \in[0,T] \label{eq:vandyn2}\\
+	& -1  \leq u \leq 1,  \hspace{20mm} t \in[0,T] \label{eq:vanpath1}\\
+	& x_2 \geq -0.25,  \hspace{21.5mm} t \in[0,T] \label{eq:vanpath2}\\
+	& x_1(0) = 0, \label{eq:initial1}\\		
+	& x_2(0) = 1, \label{eq:intial2}		
+	\end{align}
+\end{subequations}
+
+where $x_1$ and $x_2$ are the two state component (hence $X(t) = [x_1(t), x_2(t)]$), $u$ indicates the element of $U$ (which has dimension $1$), and the dynamics constraints and the initial conditions have been shown explicitly for each state component. Therefore $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
+
+\begin{figure}
+	\centering
+	\includegraphics[trim={4cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/pnh1_vanderpol}
+	\caption{}
+	\label{fig:pnhvanderpol}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Rolling Disk}
