@@ -2,9 +2,13 @@
 In this section three different example are shown. The purpose of these examples is to empirically demonstrate that the method proposed in this article leads to the same results of the one explained in~\cite{Patterson:OCAM:2015}, with the advantage of an increased computational efficiency for the final enhanced mesh with solution accuracy still within the specified tolerance. In fact, by allowing to increase the degree of the approximating polynomial independently for each state, our method effectively chooses to raise them frugally, this reducing the overall number of NLP variables needed with clear benefits in terms of reduced CPU time, memory usage and reduced risk of being trapped in local minima.
 For what concerns the details, each problem is transcribed in its first NLP by choosing $N = 20$ mesh interval and assigning a degree $\dki = 2$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$. The mesh refinement algorithm is then applied with $d_{min} = 2$, $d_{max} = 8$ and searching a tolerance $\epsilon = 1\mathrm{e}{-3}$.
 
+For what concerns the notation, it is useful o specify that $ph$ indicates the Patterson et al.~\cite{Patterson:OCAM:2015} mesh refinement method.
+
+It is worth to say that the final mesh in terms of number and size of $S_{k}$ interval is equal for the two approach, for all three examples. Even if this result is not obvious, it is closely related to the fact that both algorithms share the last part of Alg.~\ref{alg:step2} (line 9-14). Hence if at least one state in the generic $S_k$ interval wants to split the interval, this is done.
+
 Each transcribed optimal control problem is coded in a scripting environment using the
 Matlab interface to the open-source CasADi framework~\cite{casadi:MPC:2019}, which can perform AD (automatic differentiation) and provides building blocks to efficiently formulate and solve large-scale optimization problems. Then the interior-point solver IPOPT~\cite{Biegler:CCE:2009} is adopted to solve the NLP on a laptop with 2.30GHz Intel(R) Core(TM) i7-10875H CPU and 32 GB di RAM.
-It is worth to notice that in the following results, the notation $ph$ algorithm is used to denote the Patterson et al.~\cite{Patterson:OCAM:2015} mesh refinement method.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -26,9 +30,9 @@ driving a \emph{Van der Pol} oscillator to the origin, taken from reference~\cit
 	\end{align}
 \end{subequations}
 
-where $x_1$ and $x_2$ are the two state component (hence $X(t) = [x_1(t), x_2(t)]$), $u$ indicates the element of $U$ (which has dimension $1$), and the dynamics constraints and the initial conditions have been shown explicitly for each state component. Therefore $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
+where $x_1$ and $x_2$ are the two state component (hence $X(t) = [x_1(t), x_2(t)]$), $u$ indicates the element of $U$ (which has dimension $1$), and the dynamics constraints and the initial conditions have been shown explicitly for each state component. In particular, $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
 
-In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the second one ($x_2$), respectively. Comparing with the red line, which represents the initial degree, each method increases the states degree. In particular, as explained before the green line is equal for the two figures, instead the blue ones are different, this means that each state has a different final polynomial approximation. Furthermore, considering the original $S_k$ steps delimited by the dashed gray lines, observing where the green and blue markers increase, it is possible to notice where an $h$-strategy is adopted.
+In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the second one ($x_2$), respectively. Comparing with the red line, which represents the initial degree, each method increases the states degree. In particular, the green line is equal for the two figures, this means that each state has always the same polynomial degree approximation. Instead, the blue ones are different, hence each state has a different final polynomial approximation. Furthermore, considering the original $S_k$ steps delimited by the dashed gray lines, observing where the green and blue markers increase, it is possible to notice where an $h$-strategy is adopted.
 \begin{figure}
 	\centering
 	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/pnh1_vanderpol}
@@ -45,12 +49,50 @@ In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} is shown, for the $\pnh
 
 In Fig.~\ref{fig:vanderpolstates} the states profile obtained with the $\pnh$ final mesh is shown. In this case the dashed gray lines delimit the final $S_k$ interval. In particular, the nodal values are shown in blue, instead the collocation points in red. That figure shows clearly that the $\pnh$ mesh refinement method places many more collocation and mesh points where the states have greater variations.
 
+
 \begin{figure}
 	\centering
 	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/vanderpol_states}
 	\caption{OPTIMAL STATES PROFILE OBTAINED WITH THE $\pnh$ METHOD.}
 	\label{fig:vanderpolstates}
 \end{figure}
+
+The advantages of the $\pnh$ method, respect to the $ph$ one, are shown in Tab.~\ref{tab:tablevanderpol}, where the column "Mesh" indicates the type of discretization mesh, in particular, "Initial" refers to the initial mesh problem and $ph$ and $\pnh$ refers to the final mesh (hence, the one which guarantees the respect of the $\epsilon$ tolerance), of the~\cite{Patterson:OCAM:2015} and our method, respectively. Then "NLP V." indicates the NLP variables of the resulting discretized OCP problem, "Time NLP" indicates the necessary time to solve the optimal control problem, and "N.I." refers to the number of algorithm iteration necessary to reach the given tolerance. Finally, "Time tot." refers to the total CPU time necessary to reach the imposed convergence criterion, and $e_{max}$  is the maximum of the local error $\ekij$, hence
+
+\begin{equation}
+e_{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\ k = 1, \dots, N}} (\ekij)
+\end{equation}
+
+\begin{table}[h]
+	\caption{FUNDAMENTAL RESULTS QUANTITIES}
+	\begin{center}
+		\label{tab:tablevanderpol}
+		\begin{tabular}{c l l l c c c}
+			& & \\ % put some space after the caption
+			\hline
+			Mesh & NLP V. & Time NLP & N.I. & Time tot. & $e_{max}$ \\
+			\hline
+			Initial & 140 & 138ms & / & / &  $3.7\mathrm{e}{-2}$\\
+			$ph$ & 918 & 500ms & 4 & 23.1s & $9.1\mathrm{e}{-4}$ \\
+			$\pnh$ & 769 & 400ms & 4 & 19s & $9.5\mathrm{e}{-4}$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+It is worth noting that $\pnh$ method leads to an optimal solution that while respecting the given tolerance $\epsilon$, is obtained from an NLP with fewer variables than $ph$ algorithm.
+Hence the final NLP obtained from $\pnh$ method required a lower computational cost and a shorter CPU time. 
+
+!!!Figure %%Furthermore considering that $ph$ and $\pnh$ have the same final mesh in terms of $S_k$ number and size, by comparing the solution at the nodal values, the maximum difference between the two solution is for the optimal control $u$.............
+
+\begin{figure}
+	\centering
+	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/delta_vanderpol}
+	\caption{!!!!!}
+	\label{fig:deltavanderpol}
+\end{figure}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Rolling Disk}
