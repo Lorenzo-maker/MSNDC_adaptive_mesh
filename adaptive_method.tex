@@ -67,7 +67,7 @@ With reference to {\bf Algorithm~\ref{alg:step1}}, $\dkis$ is the \emph{new} pol
 	\end{algorithmic}
 \end{algorithm}
 
-According to {\bf Algorithm~\ref{alg:step1}}, the outcome of the Exploratory pass is to collect three vectorial quantities: $\Dks = [\dksn{1}, \dots, \dksn{i}, \dots, \dksn{n_x}]$, $\Dk = [\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_x}]$, and $[B_{k,1}, \ldots, B_{k,i}, \ldots, B_{k,n_x}]$. The quantity $P_{k,i}$, playing a key role to compute $\dkis$, is calculated as suggested by~\cite{Patterson:OCAM:2015}, in accordance with the convergence theory summarized in~\cite{Hou:GNC:2012,Hou:PHD:2013}.
+According to {\bf Algorithm~\ref{alg:step1}}, the outcome of the Exploration pass is to collect three vectorial quantities: $\Dks = [\dksn{1}, \dots, \dksn{i}, \dots, \dksn{n_x}]$, $\Dk = [\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_x}]$, and $[B_{k,1}, \ldots, B_{k,i}, \ldots, B_{k,n_x}]$. The quantity $P_{k,i}$, playing a key role to compute $\dkis$, is calculated as suggested by~\cite{Patterson:OCAM:2015}, in accordance with the convergence theory summarized in~\cite{Hou:GNC:2012,Hou:PHD:2013}.
 
 Roughly speaking, the outcome of the \emph{Exploration} pass does not provide a final answer \emph{per se}, but is only instrumental to the process of deciding whether the degree of the polynomial for each state component should be raised and/or the interval $S_k$ should be split. The actual of the action to take is performed in the \emph{Execution} pass and benefits from the comparison of the collected vectorial quantities.
 
@@ -95,13 +95,15 @@ The main idea is that, if all $\Bki$'s are equal to 1 and $\Dks = \Dk$, then the
 
  Instead, if only all $\Bki$'s are equal to 1, then the collected $\dkis$ should replace the degrees of the polynomials, according to a $p_n$-refinement strategy (${p_n}$-refinement).
 
-Alternatively, if at least one of the $\Bki$'s is greater than 1 -- for at least one state component a degree greater than $d_{\max}$ was required -- a subdivision of the ``responsible'' interval/intervals takes place while the degree is kept to the starting value $\dki$, thus following a $h$-refinement strategy ($h$-refinement).
+Alternatively, if at least one of the $\Bki$'s is greater than 1 -- for at least one state component a degree greater than $d_{\max}$ was required -- a subdivision of the ``responsible'' interval/intervals takes place while the degrees are kept to the starting values $\dki$, thus following a $h$-refinement strategy ($h$-refinement).
 
 In any case, at the end of the Execution pass, the new mesh (to be employed in the discretization of the next NLP to be solved), is encoded in the quantity $\dki$ and $\Bki$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$.
 
+After the solution of the new NLP with the refined mesh, the same strategy can be applied until convergence. This happens when exiting from the {\bf Algorithm~\ref{alg:step2}} in line 3.
+
 %It is worth to notice that, as explained in Alg.~\ref{alg:step2}, in each interval, if at least one of the state required to split $S_k$, then it is splitted. Instead if no state required it, each state is approximated, in the next NLP, with a polynomial of degree equal to the one proposed by the method.
 
-It is worth observing that the proposed algorithm can match the original mesh refinement method in~\cite{Patterson:OCAM:2015} if the following assumptions are made: (i) The initial NLP is set up such that all the state components have the same degree $d_k$ in $S_k$, therefore, $\dki = d_k$ ($i = 1, \dots, n_x$); (ii) line 6: of Algorithm~\ref{alg:step2} is modified according to $\dki = \max\limits_{i= 1, \dots, n_x}(\dkis)$. In this manner, the polynomial approximation maintains always the same degree for all the states.
+It is worth observing that the proposed algorithm can match the original mesh refinement method in~\cite{Patterson:OCAM:2015} if the following assumptions are made: (i) The initial NLP is set up such that all the state components have the same degree $d_k$ in $S_k$, therefore, $\dki = d_k$ ($i = 1, \dots, n_x$); (ii) line 6 of {\bf Algorithm~\ref{alg:step2}} is modified according to $\dki = \max\limits_{i= 1, \dots, n_x}(\dkis)$. In this manner, the polynomial approximation maintains always the same degree for all the states.
 
 
 
