@@ -8,39 +8,34 @@ In~\cite{Patterson:OCAM:2015}, the adjustment of the polynomial degree is perfom
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Error Estimate}
 
-In this section, an estimate of the relative error in the solution within a mesh interval is derived. The error is calculated in each mesh interval, for each state.
+In this section, an estimate of the relative error in the solution within a mesh interval is derived. The error is calculated in each mesh interval and for each component of the state.
 The key idea is to compare the optimal state obtained from the NLP solution, with a more accurate approximation of the state.
 
-To explain in details this aspect, consider the $i$-th state on the generic $S_k$ mesh interval.
-The solution of NLP gives as output a polynomial approximation of the state, that has been called $\Xkidki (\tau)$.
-If the problem solution is suppose to be smooth, a polynomial approximation obtained with an increase number of Gauss-Legendre points should yield a state that more accurately satisfies the dynamics.
-Suppose that the error has to be estimated at a set of  $\dkip = \dki + 1$ collocation points, that consistent whit the proposed notation are indicated by $\taudkip$.
-The values of the NLP solution in these points are denoted by $\Xkidki (\taudkip_j)$ for $j = 1, \dots, \dkip$.
-Then the improved approximation of the state is constructed by using the value of the right-hand side of the dynamics at these new Gauss-Legendre points.
-Let $\barXkidkip (\tau)$ be a polynomial of degree $\dkip$ that is defined for the $i$-th state on the $S_k$ interval. If the derivative of this polynomial matches the dynamics at each $\taudkip$ collocation points, $\barXkidkip (\tau)$ can be obtained by a numerical integration using the resulting quadrature scheme
+To explain in details this aspect, let us consider the $i$-th state on the generic $S_k$ mesh interval.
+The solution of NLP gives as an output a polynomial approximation of the state, namely $\Xkidki (\tau)$.
+Under the assumption of a smooth solution, a polynomial approximation obtained with an increased number of Gauss-Legendre points should yield a state that more accurately complies with the dynamics.
+Suppose that the error has to be estimated at a set of  $\dkip = \dki + 1$ collocation points denoted as $\taudkip$.
+Then, on the one hand, the values of the NLP solution at these points are computed as $\Xkidki (\taudkip_j)$, ($j = 1, \dots, \dkip$).
 
+On the other hand, a higher-order approximation of the state can be constructed by sampling the dynamics at these new Gauss-Legendre points $\taudkip$ and employing a Gauss quadrature formula.
+Let $\barXkidkip (\tau)$ be a polynomial of degree $\dkip$ that is defined for the $i$-th state on the $S_k$ interval. If the derivative of this polynomial matches the dynamics at each $\taudkip$ collocation points, $\barXkidkip (\tau)$ can be obtained by a numerical integration using the resulting quadrature scheme
 \begin{subequations}
 \begin{align}
-	&\barXkidkip (\tau) = \sum_{m=1}^{\dkip}\Big(\int_{0}^{\tau}\lmdki (\tau)d\tau\Big) f_i\Big(\Xkd(\taudkip_m), U_k\Big), \hspace{2mm} \text{where} \label{eq:barX}\\
+	&\barXkidkip (\tau) = \sum_{m=1}^{\dkip}\Big(\int_{0}^{\tau}\lmdki (\tau)d\tau\Big) f_i\Big(\Xkd(\taudkip_m), U_k\Big), \hspace{2mm} \text{with} \label{eq:barX}\\
 	&  \lmdki (\tau) = \prod_{r=1, r\neq m}^{\dkip} \dfrac{\tau - \taudkip_r}{\taudkip_m - \taudkip_r}. \label{eq:meshlm}
 \end{align}
-
 \end{subequations}
 
-Hence $\barXkidkip (\tau)$ represents the improved approximation and its values in $\taudkip$ will be denoted by $\barXkidkip (\taudkip_j)$ for $j = 1, \dots, \dkip$.
+Hence $\barXkidkip (\tau)$ represents the improved approximation and its values in $\taudkip$ will be denoted by $\barXkidkip (\taudkip_j)$, ($j = 1, \dots, \dkip$).
 
-Defined these quantities it is possible to evaluate the absolute and relative errors for each $\taudkip_j$ of the $i$-th state on the $k$-th interval
-
+With the above quantities, the \emph{absolute} error $\Ekij$ and the \emph{relative} error $\ekij$ computed at each $\taudkip_j$ for the $i$-th state in the $k$-th interval are defined as
 \begin{subequations}
 	\begin{align}
 	&\Ekij = \Big|\barXkidkip (\taudkip_j) - \Xkidki (\taudkip_j)\Big| \label{eq:absolute}\\
 	&\ekij = \dfrac{\Ekij}{1 + \max\limits_{j= 1, \dots, \dkip} \Big| \Xkidki (\taudkip_j)\Big|} \label{eq:relative}
 	\end{align}
 \end{subequations}
-
-where Eqn.~(\ref{eq:absolute}) and Eqn.~(\ref{eq:relative}) are the absolute and the relative error in the $\taudkip_j$, respectively.
-
-The relative error is use in the next section to implement the $\pnh$ strategy.
+The relative error in particular is the key ingredient used  in the next section to implement the $\pnh$ strategy.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Algorithm}
