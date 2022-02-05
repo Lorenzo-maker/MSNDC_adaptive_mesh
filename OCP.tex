@@ -1,9 +1,9 @@
 \section*{OPTIMAL CONTROL PROBLEM}
 
-Considering that the $\pnh$ adaptive refinement algorithm is applied to a general optimal control problem (OCP), in this section the structure and the notation of this kind of problem is analyzed.
+In this work, the $\pnh$ adaptive refinement algorithm is applied to a general optimal control problem (OCP). Therefore, with the aim to introduced the notation used in the rest of the paper, in this section the overall structure of an OCP and its main components are briefly recalled.
 
 
-The generic form of an OCP is as follows
+The general form of an OCP can be written as
 %\begin{equation}\label{OCP}
 %	\begin{split}
 %		&\underset{X,U}{\text{minimize}}\hspace{8mm} J = \int_{0}^{T}l(X(t),U(t))\,dt + E(X(T))\\
@@ -14,8 +14,6 @@ The generic form of an OCP is as follows
 %		\end{split}		
 %	\end{split}
 %\end{equation}
-
-
 \begin{subequations}\label{OCP}
 	\begin{align}
 	\underset{X,U}{\text{minimize}}\hspace{8mm} &J = \int_{0}^{T}g(X(t),U(t))\,dt + E(X(T)) \label{eq:cost}\\
@@ -25,7 +23,7 @@ The generic form of an OCP is as follows
 	\end{align}
 \end{subequations}
 
-where $t$ is the independent variable (time), $T$ is the terminal time, $X \in \Rnx$, $U \in \Rnu$ are the states and the controls, respectively, and $f (\cdot)$ is the dynamic vector field.
+where $t$ is the independent variable (time), $T$ is the terminal time, $X \in \Rnx$ and $U \in \Rnu$ are the states and the controls, respectively, and $f (\cdot)$ is the dynamic vector field.
 
 The OCP is characterized by an integral cost function, with a running cost $g$, a terminal cost $E(X(T))$, and three kinds of constraints: dynamics $\dot{X}-f(\cdot) \in \Rnx$, inequality $h(\cdot) \in \Rnh$, and terminal constraints $r(\cdot) \in \Rnr$.
 The solution of the OCP  consists of the controls $U^{*}(t)$ and the states $X^*(t)$  minimizing the integral cost function while satisfying the above constraints.
