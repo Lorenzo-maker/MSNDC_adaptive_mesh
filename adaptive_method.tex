@@ -39,24 +39,21 @@ The relative error in particular is the key ingredient used  in the next section
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Algorithm}
-In this section the algorithm implemented for mesh refining is shown.
-Suppose further that it is desired to meet a relative error accuracy tolerance $\epsilon$ in each mesh
-interval $S_k$ for $k = 1, \dots, N$. If the tolerance  $\epsilon$  is not met in at least one mesh interval, then the next step is to refine the current mesh, either by dividing the mesh interval or increasing the degree of the approximating polynomial within the mesh interval.
-In particular, to make it clearer, the method is shown in a pseudocode form and for the generic $S_k$ mesh interval.
-To better understand the pseudocode, it is worth to explain some quantities that appear in it.
-Hence, $\dkis$ is the new polynomial degree that has to be chosen, for the $i$-th state in the $S_k$ interval, to reach the prescribed tolerance $\epsilon$. Then $\Bki$ is the number of subinterval into which $S_k$ has to be divided, to respect $\epsilon$, considering the error of the $i$-th state. If $\Bki = 1$, $S_k$ has not to be divided . Instead $d_{min}$ and $d_{max}$ are the maximum and the minimum allowable polynomial degree.
+In this section the algorithm implemented for mesh refining is illustrated.
+Let us suppose that our goal is to keep the relative error $\ekij$ below a given tolerance $\epsilon$ in each mesh interval $S_k$, ($k = 1, \dots, N$). If the tolerance $\epsilon$  is not met at least in one mesh interval, then the next step is to refine the current mesh, either by dividing the mesh interval or increasing the degree of the approximating polynomial within the mesh interval.
 
+For the sake of clarity, the method is shown as a pseudocode for the generic $S_k$ mesh interval. The Algorithm unfolds in two main passes: (i) the \emph{Exploration} pass and (ii) the \emph{Execution} pass.
+To better understand the pseudocode, some quantities appearing in it are worth explaining from the outset.
+
+With reference to {\bf Algorithm~\ref{alg:step1}}, $\dkis$ is the \emph{new} polynomial degree that is suggested by the algorithm, for the $i$-th state in the $S_k$ interval, to reach the prescribed tolerance $\epsilon$. The quantity $\Bki$ represents the number of subinterval into which $S_k$ should be split in order to meet the prescribed $\epsilon$ tolerance for the error of the $i$-th state component. If $\Bki = 1$, no subdivisions in $S_k$ are necessary. Correspondingly, if $\dkis = \dki$, no increment in the polynomial degree is required. Instead, $d_{min}$ and $d_{max}$ are the maximum and the minimum allowable polynomial degrees provided by the user.
 %% Definire dmax, dmin, Bki, d*, epsilon
-
-
-
 \begin{algorithm}
-\caption{Exploration: Step 1 of the $\pnh$ mesh refinement}\label{alg:step1}
+\caption{\emph{Exploration} pass of the $\pnh$ mesh refinement}\label{alg:step1}
 	\begin{algorithmic}[1]
 		\For {$i = 1$ to $n_x$}
 			\If{$\max\limits_{j= 1, \dots, \dkip} (\ekij) \leq \epsilon$}
-				\State $\dkis \gets \dki$
-				\State $\Bki \gets 1$  %\Comment{This is a comment}
+				\State $\dkis \gets \dki$ \Comment{degree ok}
+				\State $\Bki \gets 1$     \Comment{mesh ok}
 			\Else
 				\State $\Pki \gets \log_{\dki} \Bigg\lceil \max\limits_{j= 1, \dots, \dkip} \Bigg(\dfrac{\ekij}{\epsilon}\Bigg) \Bigg\rceil$
 				\State $\dkis \gets \dki + \Pki$
@@ -70,17 +67,20 @@ Hence, $\dkis$ is the new polynomial degree that has to be chosen, for the $i$-t
 	\end{algorithmic}
 \end{algorithm}
 
-In Alg.~\ref{alg:step1} the first step of the proposed refine method is explained. In particular, the quantity $P_{k,i}$ is calculated referring to the method of~\cite{Patterson:OCAM:2015} which is in accordance with the convergence theory summarized in~\cite{Hou:GNC:2012,Hou:PHD:2013}.  After Alg.~\ref{alg:step1} two vectorial quantities are defined $\Dks = [\dksn{1}, \dots, \dksn{i}, \dots, \dksn{n_x}]$ and $\Dk = [\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_x}]$. Then the refinement step, shown in Alg.~\ref{alg:step2} is performed.
+According to {\bf Algorithm~\ref{alg:step1}}, the outcome of the Exploratory pass is to collect three vectorial quantities: $\Dks = [\dksn{1}, \dots, \dksn{i}, \dots, \dksn{n_x}]$, $\Dk = [\dkg{1}, \dots, \dkg{i}, \dots, \dkg{n_x}]$, and $[B_{k,1}, \ldots, B_{k,i}, \ldots, B_{k,n_x}]$. The quantity $P_{k,i}$, playing a key role to compute $\dkis$, is calculated as suggested by~\cite{Patterson:OCAM:2015}, in accordance with the convergence theory summarized in~\cite{Hou:GNC:2012,Hou:PHD:2013}.
 
+Roughly speaking, the outcome of the \emph{Exploration} pass does not provide a final answer \emph{per se}, but is only instrumental to the process of deciding whether the degree of the polynomial for each state component should be raised and/or the interval $S_k$ should be split. The actual of the action to take is performed in the \emph{Execution} pass and benefits from the comparison of the collected vectorial quantities.
+
+The Execution pass, presented in the form a pseudocode in {\bf Algorithm~\ref{alg:step2}} is now illustrated.
 \begin{algorithm}
-	\caption{Refinement: Step 2 of the $\pnh$ mesh refinement}\label{alg:step2}
+	\caption{\emph{Execution} pass of the $\pnh$ mesh refinement}\label{alg:step2}
 	\begin{algorithmic}[1]
 		\If {$\max\limits_{i= 1, \dots, n_x}(\Bki) = 1$}
 			\If {$\Dks = \Dk$}
-				\State stop algorithm, convergence reached	
+				\State algorithm.stop() \Comment convergence reached	
 			\Else
 				\For {$i = 1$ to $n_x$}
-					\State $\dki = \dkis$ \Comment p-refinement
+					\State $\dki = \dkis$ \Comment ${p_n}$-refinement
 				\EndFor
 			\EndIf
 		\Else
@@ -91,13 +91,17 @@ In Alg.~\ref{alg:step1} the first step of the proposed refine method is explaine
 		\EndIf
 	\end{algorithmic}
 \end{algorithm}
+The main idea is that, if all $\Bki$'s are equal to 1 and $\Dks = \Dk$, then the current mesh and polynomial degrees are sufficient to meet the prescribed tolerance. Therefore, no refinement is needed (convergence reached).
 
+ Instead, if only all $\Bki$'s are equal to 1, then the collected $\dkis$ should replace the degrees of the polynomials, according to a $p_n$-refinement strategy (${p_n}$-refinement).
 
-The new mesh for the next NLP, is encoded in the quantity $\dki$ and $\Bki$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$.
+Alternatively, if at least one of the $\Bki$'s is greater than 1 -- for at least one state component a degree greater than $d_{\max}$ was required -- a subdivision of the ``responsible'' interval/intervals takes place while the degree is kept to the starting value $\dki$, thus following a $h$-refinement strategy ($h$-refinement).
 
-It is worth to notice that, as explained in Alg.~\ref{alg:step2}, in each interval, if at least one of the state required to split $S_k$, then it is splitted. Instead if no state required it, each state is approximated, in the next NLP, with a polynomial of degree equal to the one proposed by the method.
+In any case, at the end of the Execution pass, the new mesh (to be employed in the discretization of the next NLP to be solved), is encoded in the quantity $\dki$ and $\Bki$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$.
 
-Finally, the proposed algorithm can match the original mesh refinement method of~\cite{Patterson:OCAM:2015} with two simple steps: (i) The first NLP has to be solved in a way that all the states have the same degree $d_k$ in $S_k$, therefore $\dki = d_k$ (for $i = 1, \dots, n_x$), (ii) The $6$-th line of Alg.~\ref{alg:step2} has to be modified by writing $\dki = \max\limits_{i= 1, \dots, n_x}(\dkis)$. In this way the polynomial approximation maintains always the same degree for all the states.
+%It is worth to notice that, as explained in Alg.~\ref{alg:step2}, in each interval, if at least one of the state required to split $S_k$, then it is splitted. Instead if no state required it, each state is approximated, in the next NLP, with a polynomial of degree equal to the one proposed by the method.
+
+It is worth observing that the proposed algorithm can match the original mesh refinement method in~\cite{Patterson:OCAM:2015} if the following assumptions are made: (i) The initial NLP is set up such that all the state components have the same degree $d_k$ in $S_k$, therefore, $\dki = d_k$ ($i = 1, \dots, n_x$); (ii) line 6: of Algorithm~\ref{alg:step2} is modified according to $\dki = \max\limits_{i= 1, \dots, n_x}(\dkis)$. In this manner, the polynomial approximation maintains always the same degree for all the states.
 
 
 
