@@ -1,8 +1,8 @@
-\section*{$p^n h$-ADAPTIVE MESH REFINEMENT METHOD}
+\section*{$p_n h$-ADAPTIVE MESH REFINEMENT METHOD}
 
 In this section a $\pnh$-adaptive mesh refinement method is developed. In particular, the generic OCP problem is first transcribed into an NLP using the \emph{direct collocation} method, explained above, then the mesh refinement method is applied to the obtained optimal solution.
-The $\pnh$ method explained here, is very closed to the one explained in~\cite{Patterson:OCAM:2015}. In particular, the method for estimating the error in the current solution is very close to the cited article. The key aspect that differentiate this work from the  work of Patterson et al. is the refinement strategy.
-In~\cite{Patterson:OCAM:2015}, the adjustment of polynomial degree is made in a way that all states are represented by the same degree. Instead, in this work the $p$-refinement is differentiate for each state. Then, in both papers if the degree approach to reach convergence failed, the mesh spacing is adjusted.
+The $\pnh$ method explained here is closely related to~\cite{Patterson:OCAM:2015}. In particular, the method for estimating the error in the current solution is adapted from the aforementioned reference. The key novelty here is the refinement strategy.
+In~\cite{Patterson:OCAM:2015}, the adjustment of the polynomial degree is perfomed such that all states are represented by the same degree. Instead, in this work, the $p$-refinement is different for each state. Instead, similarly to~\cite{Patterson:OCAM:2015}, the mesh spacing is adjusted only if the approach to reach convergence by solely increasing the polynomial degree fails.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,7 +34,7 @@ Defined these quantities it is possible to evaluate the absolute and relative er
 \begin{subequations}
 	\begin{align}
 	&\Ekij = \Big|\barXkidkip (\taudkip_j) - \Xkidki (\taudkip_j)\Big| \label{eq:absolute}\\
-	&\ekij = \dfrac{\Ekij}{1 + \max\limits_{j= 1, \dots, \dkip} \Big| \Xkidki (\taudkip_j)\Big|} \label{eq:relative} 
+	&\ekij = \dfrac{\Ekij}{1 + \max\limits_{j= 1, \dots, \dkip} \Big| \Xkidki (\taudkip_j)\Big|} \label{eq:relative}
 	\end{align}
 \end{subequations}
 
@@ -44,7 +44,7 @@ The relative error is use in the next section to implement the $\pnh$ strategy.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Algorithm}
-In this section the algorithm implemented for mesh refining is shown. 
+In this section the algorithm implemented for mesh refining is shown.
 Suppose further that it is desired to meet a relative error accuracy tolerance $\epsilon$ in each mesh
 interval $S_k$ for $k = 1, \dots, N$. If the tolerance  $\epsilon$  is not met in at least one mesh interval, then the next step is to refine the current mesh, either by dividing the mesh interval or increasing the degree of the approximating polynomial within the mesh interval.
 In particular, to make it clearer, the method is shown in a pseudocode form and for the generic $S_k$ mesh interval.
