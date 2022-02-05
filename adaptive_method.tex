@@ -35,7 +35,7 @@ With the above quantities, the \emph{absolute} error $\Ekij$ and the \emph{relat
 	&\ekij = \dfrac{\Ekij}{1 + \max\limits_{j= 1, \dots, \dkip} \Big| \Xkidki (\taudkip_j)\Big|} \label{eq:relative}
 	\end{align}
 \end{subequations}
-The relative error in particular is the key ingredient used  in the next section to implement the $\pnh$ strategy.
+The relative error in particular is the key ingredient used  in the next section to implement the $\pnh$-refinement strategy.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Algorithm}
@@ -80,13 +80,13 @@ The Execution pass, presented in the form a pseudocode in {\bf Algorithm~\ref{al
 				\State algorithm.stop() \Comment convergence reached	
 			\Else
 				\For {$i = 1$ to $n_x$}
-					\State $\dki = \dkis$ \Comment ${p_n}$-refinement
+					\State $\dki \gets \dkis$ \Comment ${p_n}$-refinement
 				\EndFor
 			\EndIf
 		\Else
 			\For {$i = 1$ to $n_x$}
-				\State $\dki = \dki$
-				\State $\Bki = \max\limits_{i= 1, \dots, n_x}(\Bki)$ \Comment h-refinement
+				\State $\dki \gets \dki$
+				\State $\Bki \gets \max\limits_{i= 1, \dots, n_x}(\Bki)$ \Comment h-refinement
 			\EndFor		
 		\EndIf
 	\end{algorithmic}
@@ -99,7 +99,7 @@ Alternatively, if at least one of the $\Bki$'s is greater than 1 -- for at least
 
 In any case, at the end of the Execution pass, the new mesh (to be employed in the discretization of the next NLP to be solved), is encoded in the quantity $\dki$ and $\Bki$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$.
 
-After the solution of the new NLP with the refined mesh, the same strategy can be applied until convergence. This happens when exiting from the {\bf Algorithm~\ref{alg:step2}} in line 3.
+After the solution of the new NLP with the refined mesh, the same strategy can be applied until convergence. This happens when hitting line 3 of {\bf Algorithm~\ref{alg:step2}}.
 
 %It is worth to notice that, as explained in Alg.~\ref{alg:step2}, in each interval, if at least one of the state required to split $S_k$, then it is splitted. Instead if no state required it, each state is approximated, in the next NLP, with a polynomial of degree equal to the one proposed by the method.
 
