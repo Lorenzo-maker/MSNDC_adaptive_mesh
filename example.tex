@@ -1,13 +1,16 @@
 \section*{EXAMPLES}
-In this section three different example are shown. The purpose of these examples is to empirically demonstrate that the method proposed in this article leads to the same results of the one explained in~\cite{Patterson:OCAM:2015}, with the advantage of an increased computational efficiency for the final enhanced mesh with solution accuracy still within the specified tolerance. In fact, by allowing to increase the degree of the approximating polynomial independently for each state, our method effectively chooses to raise them frugally, this reducing the overall number of NLP variables needed with clear benefits in terms of reduced CPU time, memory usage and reduced risk of being trapped in local minima.
-For what concerns the details, each problem is transcribed in its first NLP by choosing $N = 20$ mesh interval and assigning a degree $\dki = 2$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$. The mesh refinement algorithm is then applied with $d_{min} = 2$, $d_{max} = 8$ and searching a tolerance $\epsilon = 1\mathrm{e}{-3}$.
+In this section, three different examples are discussed. Their purpose is to numerically showcase that our method allows to adaptively refine the mesh to accurately solve an OCP, similarly to ~\cite{Patterson:OCAM:2015}, with the remarkable advantage of an increased computational efficiency for the final enhanced mesh without hindering the accuracy of the final solution. 
+%still within the specified tolerance. 
+In fact, by allowing to increase the degrees of the approximating polynomials independently for each state, our method effectively adopts to raise them carefully and in a tailored manner. This allows to reduce the overall number of variables of the resulting NLP, with clear benefits in terms of reduced CPU time, memory usage and reduced risk of being trapped by local minima.
 
-For what concerns the notation, it is useful o specify that $ph$ indicates the Patterson et al.~\cite{Patterson:OCAM:2015} mesh refinement method.
+Let us now direct our attention to the details. Each problem is transcribed in its initial NLP version by choosing $N = 20$ mesh intervals and by assigning a degree $\dki = 2$ everywhere, i.e. for all $i = 1, \dots, n_x$ and  $k = 1, \dots, N$. The mesh refinement algorithm is then applied with $d_{\min} = 2$, $d_{\max} = 8$ with a prescribed maximum allowable relative error $\epsilon = 1 \cdot 10^{-3}$.
 
-It is worth to say that the final mesh in terms of number and size of $S_{k}$ interval is equal for the two approach, for all three examples. Even if this result is not obvious, it is closely related to the fact that both algorithms share the last part of Alg.~\ref{alg:step2} (line 9-14). Hence if at least one state in the generic $S_k$ interval wants to split the interval, this is done.
+It is worth observing that the $p_{n}h$ tag and the $ph$ tag indicate our mesh refinement method and the one originally proposed by Patterson et al.~\cite{Patterson:OCAM:2015}, respectively.
 
-Each transcribed optimal control problem is coded in a scripting environment using the
-Matlab interface to the open-source CasADi framework~\cite{casadi:MPC:2019}, which can perform AD (automatic differentiation) and provides building blocks to efficiently formulate and solve large-scale optimization problems. Then the interior-point solver IPOPT~\cite{Biegler:CCE:2009} is adopted to solve the NLP on a laptop with 2.30GHz Intel(R) Core(TM) i7-10875H CPU and 32 GB di RAM.
+It is also worth remarking that the final refined mesh for all the three presented examples (both in terms of number and size of $S_{k}$ intervals), turns out to be the same by rolling out both the $p_{n}h$ and the $ph$ approaches. This arises partly as a result that algorithms share the last section (lines 9-14) of the \emph{Execution} pass in {\bf Algorithm~\ref{alg:step2}}. This means the generic $S_k$ interval is subdivided if and only if at least one state in the generic $S_k$ asks for it.
+
+Each transcribed optimal control problem is coded in a scripting environment using the \texttt{MATLAB} interface to the open-source CasADi framework~\cite{casadi:MPC:2019}. 
+The CasADi suite can perform AD (automatic differentiation) on the code to compute gradients and Jacobians and provides building blocks to efficiently formulate and solve large-scale optimization problems. The back-end solver adopted is IPOPT~\cite{Biegler:CCE:2009} which implements an interior-point algorithm. All the associated NLPs are solved on a laptop with 2.30GHz Intel(R) Core(TM) i7-10875H CPU and 32 GB of RAM.
 
 
 
@@ -18,9 +21,9 @@ driving a \emph{Van der Pol} oscillator to the origin, taken from reference~\cit
 
 \begin{subequations}\label{eq:vanderpol}
 	\begin{align}
-	\underset{X \in \mathbb{R}^{2}, \, U \in \mathbb{R}}{\text{minimize}}\hspace{8mm} 
+	\underset{X \in \mathbb{R}^{2}, \, U \in \mathbb{R}}{\text{minimize}}\hspace{8mm}
 	&J = \int_{0}^{T}(x_1^{2} + x_2^{2} + u^{2})\,dt  \label{eq:vancost}\\
-	\text{subject to} \hspace{8mm} 
+	\text{subject to} \hspace{8mm}
 	& \dot{x}_1 = (1 - x_2^{2})x_{1} - x_2 + u \hspace{5mm} t \in[0,T] \label{eq:vandyn1}\\
 	& \dot{x}_2 = x_1 \hspace{28.5mm} t \in[0,T] \label{eq:vandyn2}\\
 	& -1  \leq u \leq 1,  \hspace{20mm} t \in[0,T] \label{eq:vanpath1}\\
@@ -81,7 +84,7 @@ e_{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\ k = 
 \end{table}
 
 It is worth noting that $\pnh$ method leads to an optimal solution that while respecting the given tolerance $\epsilon$, is obtained from an NLP with fewer variables than $ph$ algorithm.
-Hence the final NLP obtained from $\pnh$ method required a lower computational cost and a shorter CPU time. 
+Hence the final NLP obtained from $\pnh$ method required a lower computational cost and a shorter CPU time.
 
 !!!Figure %%Furthermore considering that $ph$ and $\pnh$ have the same final mesh in terms of $S_k$ number and size, by comparing the solution at the nodal values, the maximum difference between the two solution is for the optimal control $u$.............
 

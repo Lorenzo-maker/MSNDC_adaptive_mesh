@@ -56,11 +56,11 @@ With reference to {\bf Algorithm~\ref{alg:step1}}, $\dkis$ is the \emph{new} pol
 				\State $\Bki \gets 1$     \Comment{mesh ok}
 			\Else
 				\State $\Pki \gets \log_{\dki} \Bigg\lceil \max\limits_{j= 1, \dots, \dkip} \Bigg(\dfrac{\ekij}{\epsilon}\Bigg) \Bigg\rceil$
-				\State $\dkis \gets \dki + \Pki$
-					\If {$ \dkis \leq d_{max}$}
+				\State $\dkis \gets \dki + \Pki$ \Comment{increase degree}
+					\If {$ \dkis \leq d_{\max}$}
 						\State $\Bki \gets 1$		
 					\Else
-						\State $\Bki \gets \max\Bigg(\Bigg\lceil \dfrac{\dkis}{d_{min}}\Bigg\rceil, 2\Bigg)$
+						\State $\Bki \gets \max\Bigg(\Bigg\lceil \dfrac{\dkis}{d_{min}}\Bigg\rceil, 2\Bigg)$ \Comment{split mesh}
 					\EndIf
 			\EndIf
 		\EndFor
