@@ -5,12 +5,12 @@ In fact, by allowing to increase the degrees of the approximating polynomials in
 
 Let us now direct our attention to the details. Each problem is transcribed in its initial NLP version by choosing $N = 20$ mesh intervals and by assigning a degree $\dki = 2$ everywhere, i.e. for all $i = 1, \dots, n_x$ and  $k = 1, \dots, N$. The mesh refinement algorithm is then applied with $d_{\min} = 2$, $d_{\max} = 8$ with a prescribed maximum allowable relative error $\epsilon = 1 \cdot 10^{-3}$.
 
-It is worth observing that the $p_{n}h$ tag and the $ph$ tag indicate our mesh refinement method and the one originally proposed by Patterson et al.~\cite{Patterson:OCAM:2015}, respectively.
+It is worth observing that the $p_{n}h$ and $ph$ tags indicate our mesh refinement method and the one originally proposed by Patterson et al.~\cite{Patterson:OCAM:2015}, respectively.
 
-It is also worth remarking that the final refined mesh for all the three presented examples (both in terms of number and size of $S_{k}$ intervals), turns out to be the same by rolling out both the $p_{n}h$ and the $ph$ approaches. This arises partly as a result that algorithms share the last section (lines 9-14) of the \emph{Execution} pass in {\bf Algorithm~\ref{alg:step2}}. This means the generic $S_k$ interval is subdivided if and only if at least one state in the generic $S_k$ asks for it.
+It is also worth remarking that the final refined mesh for all the three presented examples (both in terms of number and size of $S_{k}$ intervals), turns out to be the same by rolling out both the $p_{n}h$ and the $ph$ approaches. This arises partly as a result that both algorithms share the last section (lines 9-14) of the \emph{Execution} pass in {\bf Algorithm~\ref{alg:step2}}. This means the generic $S_k$ interval is subdivided if and only if at least one state in the generic $S_k$ asks for it.
 
-Each transcribed optimal control problem is coded in a scripting environment using the \texttt{MATLAB} interface to the open-source CasADi framework~\cite{casadi:MPC:2019}. 
-The CasADi suite can perform AD (automatic differentiation) on the code to compute gradients and Jacobians and provides building blocks to efficiently formulate and solve large-scale optimization problems. The back-end solver adopted is IPOPT~\cite{Biegler:CCE:2009} which implements an interior-point algorithm. All the associated NLPs are solved on a laptop with 2.30GHz Intel(R) Core(TM) i7-10875H CPU and 32 GB of RAM.
+Each transcribed optimal control problem tested was coded in a scripting environment using the \text{MATLAB} interface to the open-source CasADi framework~\cite{casadi:MPC:2019}.
+The CasADi suite can perform AD (Automatic Differentiation) on the code to compute gradients and Jacobians and provides building blocks to efficiently formulate and solve large-scale optimization problems. The back-end solver adopted is IPOPT~\cite{Biegler:CCE:2009} which implements an interior-point algorithm. All the associated NLPs are solved on a laptop with 2.30GHz Intel(R) Core(TM) i7-10875H CPU and 32 GB of RAM.
 
 
 
