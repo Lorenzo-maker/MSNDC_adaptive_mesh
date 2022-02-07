@@ -1,6 +1,6 @@
 \section*{EXAMPLES}
-In this section, three different examples are discussed. Their purpose is to numerically showcase that our method allows to adaptively refine the mesh to accurately solve an OCP, similarly to ~\cite{Patterson:OCAM:2015}, with the remarkable advantage of an increased computational efficiency for the final enhanced mesh without hindering the accuracy of the final solution. 
-%still within the specified tolerance. 
+In this section, three different examples are discussed. Their purpose is to numerically showcase that our method allows to adaptively refine the mesh to accurately solve an OCP, similarly to ~\cite{Patterson:OCAM:2015}, with the remarkable advantage of an increased computational efficiency for the final enhanced mesh without hindering the accuracy of the final solution.
+%still within the specified tolerance.
 In fact, by allowing to increase the degrees of the approximating polynomials independently for each state, our method effectively adopts to raise them carefully and in a tailored manner. This allows to reduce the overall number of variables of the resulting NLP, with clear benefits in terms of reduced CPU time, memory usage and reduced risk of being trapped by local minima.
 
 Let us now direct our attention to the details. Each problem is transcribed in its initial NLP version by choosing $N = 20$ mesh intervals and by assigning a degree $\dki = 2$ everywhere, i.e. for all $i = 1, \dots, n_x$ and  $k = 1, \dots, N$. The mesh refinement algorithm is then applied with $d_{\min} = 2$, $d_{\max} = 8$ with a prescribed maximum allowable relative error $\epsilon = 1 \cdot 10^{-3}$.
@@ -16,9 +16,8 @@ The CasADi suite can perform AD (Automatic Differentiation) on the code to compu
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Example 1: Van Der Pol}
-Considering the following optimal control problem namely
-driving a \emph{Van der Pol} oscillator to the origin, taken from reference~\cite{casadi:DOC:2018},
-
+The first optimal control problem considered is taken from reference~\cite{casadi:DOC:2018} and considers
+driving a \emph{Van der Pol} oscillator to the origin. It can be expressed as follows
 \begin{subequations}\label{eq:vanderpol}
 	\begin{align}
 	\underset{X \in \mathbb{R}^{2}, \, U \in \mathbb{R}}{\text{minimize}}\hspace{8mm}
@@ -28,12 +27,11 @@ driving a \emph{Van der Pol} oscillator to the origin, taken from reference~\cit
 	& \dot{x}_2 = x_1 \hspace{28.5mm} t \in[0,T] \label{eq:vandyn2}\\
 	& -1  \leq u \leq 1,  \hspace{20mm} t \in[0,T] \label{eq:vanpath1}\\
 	& x_2 \geq -0.25,  \hspace{21.5mm} t \in[0,T] \label{eq:vanpath2}\\
-	 x_1(0) &= 0, \hspace{5mm} x_2(0) = 1 \label{eq:initial1}\\		
+	 x_1(0) &= 0, \hspace{5mm} x_2(0) = 1, \label{eq:initial1}\\		
 	%& x_2(0) = 1, \label{eq:intial2}		
 	\end{align}
 \end{subequations}
-
-where $T = 10$s, $x_1$ and $x_2$ are the two state component (hence $X(t) = [x_1(t), x_2(t)]$), $u$ indicates the element of $U$ (which has dimension $1$), and the dynamics constraints and the initial conditions have been shown explicitly for each state component. In particular, $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
+where $T = 10$ s, $x_1$ and $x_2$ are the two state components (hence $X(t) = [x_1(t), x_2(t)]\in \bbR^2$), $u\in\bbR$ indicates the control, and the dynamics constraints and the initial conditions are shown explicitly for each state component. Clearly, $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
 
 In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} (top) is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the second one ($x_2$), respectively. Comparing with the red line, which represents the initial degree, each method increases the states degree. In particular, the green line is equal for the two figures, this means that each state has always the same polynomial degree approximation. Instead, the blue ones are different, hence each state has a different final polynomial approximation. Furthermore, considering the original $S_k$ steps delimited by the dashed gray lines, observing where the green and blue markers increase, it is possible to notice where an $h$-strategy is adopted.
 
@@ -83,7 +81,7 @@ It is worth noting that $\pnh$ method leads to an optimal solution that while re
 Hence the final NLP obtained from $\pnh$ method required a lower computational cost and a shorter CPU time.
 Furthermore considering that $ph$ and $\pnh$ have the same final mesh in terms of $S_k$ number and size, these two solution can be compared at the nodal values.
 In Fig.~\ref{fig:deltavanderpol}, the difference between the $\pnh$ and $ph$ final optimal solutions, are shown.
-In particular, considering that the states and the control $u$ have an order of magnitude of $10^{0}$, the two solution cane be considered equal.  
+In particular, considering that the states and the control $u$ have an order of magnitude of $10^{0}$, the two solution cane be considered equal.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Example 2: Vertical Rolling Disk}
 Considering the following optimal control problem in which a vertical rolling disk has to be driven on an horizontal $x$-$y$ plane from an initial position to a final one, minimizing the control action,
@@ -105,12 +103,12 @@ Considering the following optimal control problem in which a vertical rolling di
 \end{subequations}
 where $T = 10$s, $m$ is the disk mass, $\rho$ is the disk radius, $I_{\theta}$ is the disk moment of inertia respect to an axis that passes through the contact point between the disk and the plane and perpendicular to the latter; $I_{\phi}$ is the disk moment of inertia respect to an axis that passes through the center of the disk and is parallel to the plane.
 For what concern the states, $x_1$ and $x_2$ represent the disk trajectory on the plane, $x_3$, $x_4$ represent the angle between the disk rolling direction and $x$-axis on the plane and the rolling angle, respectively. Instead $x_5$, $x_6$ are the steering and rolling speed, respectively.
-The disk is controlled with two torques, $u_1$ for the steering action and $u_2$ for the rolling action. Starting in the plane origin ($x_1(0) = 0, \, x_2(0) = 0$) and pointing to the $y$-axis ($x_3(0) = \pi/2$) the disk has to be driven in the final position described by 
+The disk is controlled with two torques, $u_1$ for the steering action and $u_2$ for the rolling action. Starting in the plane origin ($x_1(0) = 0, \, x_2(0) = 0$) and pointing to the $y$-axis ($x_3(0) = \pi/2$) the disk has to be driven in the final position described by
 Eqn.~(\ref{eq:diskfinal1}). It is worth to remember that for a more compact notation $X = [x_1, x_2, x_3, x_4, x_5, x_6]$  and $U = [u_1, u_2]$.
 \begin{figure}[t]
 	\centering
 	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1\columnwidth]{Img/pnh1_disk1}
-	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF FIRST STATE ($x_{1}$) FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM) 
+	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF FIRST STATE ($x_{1}$) FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
 		OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$.}
 	\label{fig:pnh1disk}
 \end{figure}
