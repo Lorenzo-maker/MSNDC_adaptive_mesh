@@ -15,7 +15,7 @@ The CasADi suite can perform AD (Automatic Differentiation) on the code to compu
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Van Der Pol}
+\subsection*{Example 1: Van Der Pol}
 Considering the following optimal control problem namely
 driving a \emph{Van der Pol} oscillator to the origin, taken from reference~\cite{casadi:DOC:2018},
 
@@ -28,46 +28,36 @@ driving a \emph{Van der Pol} oscillator to the origin, taken from reference~\cit
 	& \dot{x}_2 = x_1 \hspace{28.5mm} t \in[0,T] \label{eq:vandyn2}\\
 	& -1  \leq u \leq 1,  \hspace{20mm} t \in[0,T] \label{eq:vanpath1}\\
 	& x_2 \geq -0.25,  \hspace{21.5mm} t \in[0,T] \label{eq:vanpath2}\\
-	& x_1(0) = 0, \label{eq:initial1}\\		
-	& x_2(0) = 1, \label{eq:intial2}		
+	 x_1(0) &= 0, \hspace{5mm} x_2(0) = 1 \label{eq:initial1}\\		
+	%& x_2(0) = 1, \label{eq:intial2}		
 	\end{align}
 \end{subequations}
 
-where $x_1$ and $x_2$ are the two state component (hence $X(t) = [x_1(t), x_2(t)]$), $u$ indicates the element of $U$ (which has dimension $1$), and the dynamics constraints and the initial conditions have been shown explicitly for each state component. In particular, $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
+where $T = 10$s, $x_1$ and $x_2$ are the two state component (hence $X(t) = [x_1(t), x_2(t)]$), $u$ indicates the element of $U$ (which has dimension $1$), and the dynamics constraints and the initial conditions have been shown explicitly for each state component. In particular, $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
 
-In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the second one ($x_2$), respectively. Comparing with the red line, which represents the initial degree, each method increases the states degree. In particular, the green line is equal for the two figures, this means that each state has always the same polynomial degree approximation. Instead, the blue ones are different, hence each state has a different final polynomial approximation. Furthermore, considering the original $S_k$ steps delimited by the dashed gray lines, observing where the green and blue markers increase, it is possible to notice where an $h$-strategy is adopted.
-\begin{figure}
+In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} (top) is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the second one ($x_2$), respectively. Comparing with the red line, which represents the initial degree, each method increases the states degree. In particular, the green line is equal for the two figures, this means that each state has always the same polynomial degree approximation. Instead, the blue ones are different, hence each state has a different final polynomial approximation. Furthermore, considering the original $S_k$ steps delimited by the dashed gray lines, observing where the green and blue markers increase, it is possible to notice where an $h$-strategy is adopted.
+
+In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} (bottom) the states profile obtained with the $\pnh$ final mesh is shown. In this case the dashed gray lines delimit the final $S_k$ interval. In particular, the nodal values are shown in blue, instead the collocation points in red. That figure shows clearly that the $\pnh$ mesh refinement method places many more collocation and mesh points where the states have greater variations.
+\begin{figure}[t]
 	\centering
-	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/pnh1_vanderpol}
-	\caption{POLYNOMIAL DEGREE OF SECOND STATE ($x_{1}$) FOR THE INITIAL MESH (RED) $\pnh$ ALGORITHM (BLUE) AND $ph$ ALGORITHM (GREEN).}
+	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1\columnwidth]{Img/pnh1_vanderpol1}
+	\caption{EXAMPLE 1:  (TOP) POLYNOMIAL DEGREE OF $x_{1}$ FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
+	OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$.}
 	\label{fig:pnh1vanderpol}
 \end{figure}
-
-\begin{figure}
+\begin{figure}[t]
 	\centering
-	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/pnh2_vanderpol}
-	\caption{POLYNOMIAL DEGREE OF SECOND STATE ($x_{2}$) FOR THE INITIAL MESH (RED) $\pnh$ ALGORITHM (BLUE) AND $ph$ ALGORITHM (GREEN).}
+	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1\columnwidth]{Img/pnh2_vanderpol2}
+	\caption{EXAMPLE 1: (TOP) POLYNOMIAL DEGREE OF $x_{2}$ FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN) (TOP), (BOTTOM)
+	OPTIMAL $x_1$ PROFILE OBTAINED WITH  $\pnh$.}
 	\label{fig:pnh2vanderpol}
 \end{figure}
-
-In Fig.~\ref{fig:vanderpolstates} the states profile obtained with the $\pnh$ final mesh is shown. In this case the dashed gray lines delimit the final $S_k$ interval. In particular, the nodal values are shown in blue, instead the collocation points in red. That figure shows clearly that the $\pnh$ mesh refinement method places many more collocation and mesh points where the states have greater variations.
-
-
-\begin{figure}
-	\centering
-	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/vanderpol_states}
-	\caption{OPTIMAL STATES PROFILE OBTAINED WITH THE $\pnh$ METHOD.}
-	\label{fig:vanderpolstates}
-\end{figure}
-
 The advantages of the $\pnh$ method, respect to the $ph$ one, are shown in Tab.~\ref{tab:tablevanderpol}, where the column "Mesh" indicates the type of discretization mesh, in particular, "Initial" refers to the initial mesh problem and $ph$ and $\pnh$ refers to the final mesh (hence, the one which guarantees the respect of the $\epsilon$ tolerance), of the~\cite{Patterson:OCAM:2015} and our method, respectively. Then "NLP V." indicates the NLP variables of the resulting discretized OCP problem, "Time NLP" indicates the necessary time to solve the optimal control problem, and "N.I." refers to the number of algorithm iteration necessary to reach the given tolerance. Finally, "Time tot." refers to the total CPU time necessary to reach the imposed convergence criterion, and $e_{max}$  is the maximum of the local error $\ekij$, hence
-
 \begin{equation}
 e_{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\ k = 1, \dots, N}} (\ekij)
 \end{equation}
-
-\begin{table}[h]
-	\caption{FUNDAMENTAL RESULTS QUANTITIES}
+\begin{table}[t]
+	\caption{EXAMPLE 1: MESH REFINEMENT RESULTS FOR THE THREE DIFFERENT TYPE OF MESH (INITIAL MESH, $ph$ FINAL MESH AND $\pnh$ FINAL MESH)}
 	\begin{center}
 		\label{tab:tablevanderpol}
 		\begin{tabular}{c l l l c c c}
@@ -82,27 +72,125 @@ e_{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\ k = 
 		\end{tabular}
 	\end{center}
 \end{table}
-
-It is worth noting that $\pnh$ method leads to an optimal solution that while respecting the given tolerance $\epsilon$, is obtained from an NLP with fewer variables than $ph$ algorithm.
-Hence the final NLP obtained from $\pnh$ method required a lower computational cost and a shorter CPU time.
-
-!!!Figure %%Furthermore considering that $ph$ and $\pnh$ have the same final mesh in terms of $S_k$ number and size, by comparing the solution at the nodal values, the maximum difference between the two solution is for the optimal control $u$.............
-
-\begin{figure}
+%%%%
+\begin{figure}[t]
 	\centering
-	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1.\linewidth]{Img/delta_vanderpol}
-	\caption{!!!!!}
+	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1\columnwidth]{Img/delta_vanderpol}
+	\caption{EXAMPLE 1: NODAL DIFFERENCES BETWEEN $\pnh$ AND $ph$ FINAL SOLUTIONS}
 	\label{fig:deltavanderpol}
 \end{figure}
-
-
-
+It is worth noting that $\pnh$ method leads to an optimal solution that while respecting the given tolerance $\epsilon$, is obtained from an NLP with fewer variables than $ph$ algorithm.
+Hence the final NLP obtained from $\pnh$ method required a lower computational cost and a shorter CPU time.
+Furthermore considering that $ph$ and $\pnh$ have the same final mesh in terms of $S_k$ number and size, these two solution can be compared at the nodal values.
+In Fig.~\ref{fig:deltavanderpol}, the difference between the $\pnh$ and $ph$ final optimal solutions, are shown.
+In particular, considering that the states and the control $u$ have an order of magnitude of $10^{0}$, the two solution cane be considered equal.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Rolling Disk}
-Esempio disco
-
+\subsection*{Example 2: Vertical Rolling Disk}
+Considering the following optimal control problem in which a vertical rolling disk has to be driven on an horizontal $x$-$y$ plane from an initial position to a final one, minimizing the control action,
+\begin{subequations}\label{eq:disk}
+	\begin{align}
+	\underset{X \in \mathbb{R}^{6}, \, U \in \mathbb{R}^{2}}{\text{minimize}}\hspace{8mm}
+	&J = \int_{0}^{T}(u_{1}^{2} +  u_{2}^{2})\,dt  \label{eq:diskcost}\\
+	\text{subject to} \hspace{8mm}
+	& \dot{x}_1 = \rho x_6  \cos(x_3) \hspace{10mm} t \in[0,T] \label{eq:diskdyn1}\\
+	& \dot{x}_2 = \rho x_6  \sin(x_3)\hspace{10.5mm} t \in[0,T] \label{eq:diskdyn2}\\
+	& \dot{x}_3 = x_5\hspace{23mm} t \in[0,T] \label{eq:diskdyn3}\\
+	& \dot{x}_4 = x_6\hspace{23mm} t \in[0,T] \label{eq:diskdyn4}\\
+	& \dot{x}_5 = u_1/I_{\theta}\hspace{18.2mm} t \in[0,T] \label{eq:diskdyn5}\\
+	& \dot{x}_6 = u_2/(I_{\phi} + m \rho^{2})\hspace{5.8mm} t \in[0,T] \label{eq:diskdyn6}\\
+	& x_6 \geq 0  \hspace{24.5mm} t \in[0,T]\\
+	&X(0) = [0, 0, \pi/2, 0, 0, 0]\\	
+	 x_1(T) = 10,\hspace{3mm} &x_2(T) = 10, \hspace{3mm} x_3(T) = \pi/4, \label{eq:diskfinal1}		
+	\end{align}
+\end{subequations}
+where $T = 10$s, $m$ is the disk mass, $\rho$ is the disk radius, $I_{\theta}$ is the disk moment of inertia respect to an axis that passes through the contact point between the disk and the plane and perpendicular to the latter; $I_{\phi}$ is the disk moment of inertia respect to an axis that passes through the center of the disk and is parallel to the plane.
+For what concern the states, $x_1$ and $x_2$ represent the disk trajectory on the plane, $x_3$, $x_4$ represent the angle between the disk rolling direction and $x$-axis on the plane and the rolling angle, respectively. Instead $x_5$, $x_6$ are the steering and rolling speed, respectively.
+The disk is controlled with two torques, $u_1$ for the steering action and $u_2$ for the rolling action. Starting in the plane origin ($x_1(0) = 0, \, x_2(0) = 0$) and pointing to the $y$-axis ($x_3(0) = \pi/2$) the disk has to be driven in the final position described by 
+Eqn.~(\ref{eq:diskfinal1}). It is worth to remember that for a more compact notation $X = [x_1, x_2, x_3, x_4, x_5, x_6]$  and $U = [u_1, u_2]$.
+\begin{figure}[t]
+	\centering
+	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1\columnwidth]{Img/pnh1_disk1}
+	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF FIRST STATE ($x_{1}$) FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM) 
+		OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$.}
+	\label{fig:pnh1disk}
+\end{figure}
+In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (top) is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the third one ($x_3$), respectively. Even if for some state, as for example $x_1$, the $\pnh$ and $pn$ method seems to give, for certain sector of optimal solution, the same results, in terms of polynomial degree, there are other state as $x_3$ for which the two algorithm provide a very different mesh in terms of the final polynomial approximation.
+Instead In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (bottom) the optimal profile of $x_1$ and $x_3$ are shown. In particular, considering the gray line and the collocation points in red, it is clear where the refinement acts more.
+%%%%%%%%%%%
+\begin{figure}[t]
+	\centering
+	\includegraphics[trim={1cm 0cm 2cm 1.05cm},clip,width=1.\columnwidth]{Img/pnh2_disk2}
+	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF THIRD STATE ($x_{3}$) FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
+	OPTIMAL $x_3$ PROFILE OBTAINED WITH $\pnh$.}
+	\label{fig:pnh2disk}
+\end{figure}
+%%%%%%%%%%%%%%
+The advantages of the $\pnh$ method, respect to the $ph$ one, are shown in Tab.~\ref{tab:tabledisk}. In particular, even if $\pnh$ method needs an extra iteration, it maintains a total time equal to the $ph$ method. Furthermore, with the same $e_{max}$ reached, the last NLP variables of $\pnh$ are 25\% less than the original method.
+%%%%%%%%%%%%%
+\begin{table}[t]
+	\caption{EXAMPLE 2: MESH REFINEMENT RESULTS FOR THE THREE DIFFERENT TYPE OF MESH (INITIAL MESH, $ph$ FINAL MESH AND $\pnh$ FINAL MESH)}
+	\begin{center}
+		\label{tab:tabledisk}
+		\begin{tabular}{c l l l c c c}
+			& & \\ % put some space after the caption
+			\hline
+			Mesh & NLP V. & Time NLP & N.I. & Time tot. & $e_{max}$ \\
+			\hline
+			Initial & 400 & 643ms & / & / &  $3.6\mathrm{e}{-2}$\\
+			$ph$  & 6496 & 61.62s & 4 & 287.7s & $9.8\mathrm{e}{-4}$ \\
+			$\pnh$ & 4810 & 34.42s & 5 & 287.14s & $9.8\mathrm{e}{-4}$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+%%%%%%%%%%%%%
+For what concerns the nodal differences (obtained as the difference between te nodal value of $\pnh$ and $ph$ solutions), the maximum value is reached for $u_2$. However this difference has an order of magnitude of $10^{-6}$ which is very small considering that the control signal $u_2$ has an order of magnitude of $10^0$. Hence, the two methods lead to the same solution.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Free Flying Robot}
-Esempio free flying robot
+\subsection*{Example 3: Free Flying Robot}
+Considering the optimal control problem of driving a free-flying robot with a propulsion system. The problem is taken from reference~\cite{Betts:book:2010}, with a modified cost function
+\begin{subequations}\label{eq:free}
+	\begin{align}
+	\underset{X \in \mathbb{R}^{6}, \, U \in \mathbb{R}^{2}}{\text{minimize}}\hspace{8mm}
+	&J = \int_{0}^{T}(u_{1}^{2} +  u_{2}^{2})\,dt  \label{eq:freecost}\\
+	\text{subject to} \hspace{8mm}
+	& \dot{x}_1 = x_4 \hspace{28mm} t \in[0,T] \label{eq:freedyn1}\\
+	& \dot{x}_2 = x_5 \hspace{28mm} t \in[0,T] \label{eq:freedyn2}\\
+	& \dot{x}_3 = x_6\hspace{28mm} t \in[0,T] \label{eq:freedyn3}\\
+	& \dot{x}_4 = (u_1 + u_2)\cos(x_3)\hspace{7.5mm} t \in[0,T] \label{eq:freedyn4}\\
+	& \dot{x}_5 = (u_1 + u_2)\sin(x_3)\hspace{8mm} t \in[0,T] \label{eq:freedyn5}\\
+	& \dot{x}_6 = \alpha u_1 - \beta u_2\hspace{16mm} t \in[0,T] \label{eq:freedyn6}\\
+	&X(0) = [-10, -10, \pi/2, 0, 0, 0]\\
+	&X(T) = [0, 0, 0, 0, 0, 0] \label{eq:freefinal1}		
+	\end{align}
+\end{subequations}
+where $x_1$ and $x_2$ are the inertial coordinates of the center of gravity, $x_3$, $x_4$ are the corresponding velocity, and $x_5$, $x_6$ are the thrust direction and the angular velocity, respectively. The thrust from two engines denoted by $u_1$ and $u_2$ serve as the control variables. Finally, $T = 12$s and $\alpha = \beta = 1$.
+%%%%%%%%%%%%%
+\begin{figure}[t]
+	\centering
+	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1.\linewidth]{Img/pnh1_free}
+	\caption{EXAMPLE 3: (TOP) POLYNOMIAL DEGREE OF $x_{3}$ FOR THE INITIAL MESH (RED), FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM) OPTIMAL $x_3$ PROFILE OBTAINED WITH $\pnh$. }
+	\label{fig:pnh1free}
+\end{figure}
+%%%%%%%%%%%%%%%%
+For this example,  in Fig.~\ref{fig:pnh1free}, the results for $x_3$ (hence the thrust direction) are shown. In particular, the final order required by $\pnh$ method is very different respect to the $ph$ one. Furthermore, considering the state profile, it is worth to observe that the $h$ strategy is favored at the begging and at the end of the trajectory.
+
+In Tab.~\ref{tab:tablefree}
+\begin{table}[t]
+	\caption{EXAMPLE 3: MESH REFINEMENT RESULTS FOR THE THREE DIFFERENT TYPE OF MESH (INITIAL MESH, $ph$ FINAL MESH AND $\pnh$ FINAL MESH)}
+	\begin{center}
+		\label{tab:tablefree}
+		\begin{tabular}{c l l l c c c}
+			& & \\ % put some space after the caption
+			\hline
+			Mesh & NLP V. & Time NLP & N.I. & Time tot. & $e_{max}$ \\
+			\hline
+			Initial & 400 & 643ms & / & / &  $3.7\mathrm{e}{-2}$\\
+			$ph$  & 6944 & 79.75s & 4 & 367.06s & $8.9\mathrm{e}{-4}$ \\
+			$\pnh$ & 5550 & 63.63s & 4 & 271.26s & $9.2\mathrm{e}{-4}$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
 
 %\cite{latex, goosens} 
