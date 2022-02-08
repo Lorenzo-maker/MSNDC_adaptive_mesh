@@ -39,19 +39,19 @@ Furthermore, with respect to the initial $S_k$ steps delimited by the dashed gra
 In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} (bottom panels) the state profiles obtained with the $\pnh$ final mesh are shown. Here, the dashed gray lines delimit the \emph{final} mesh intervals. In particular, the nodal values are shown in blue, whereas the collocation points are plotted in red. These figures clearly show that the $\pnh$-adaptive mesh refinement method increases the polynomial order (more collocation points) and increases the mesh density (more mesh points) selectively for each state only where it is needed (high gradient).
 \begin{figure}[t]
 	\centering
-	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1\columnwidth]{Img/pnh1_vanderpol1}
+	\includegraphics[trim={1cm 0.1cm 2cm 0.5cm},clip,width=1\columnwidth]{Img/pnh1_vanderpol1}
 	\caption{EXAMPLE 1:  (TOP) POLYNOMIAL DEGREE OF $x_{1}$ FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
 	OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$.}
 	\label{fig:pnh1vanderpol}
 \end{figure}
 \begin{figure}[t]
 	\centering
-	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1\columnwidth]{Img/pnh2_vanderpol2}
+	\includegraphics[trim={1cm 0.1cm 2cm 0.5cm},clip,width=1\columnwidth]{Img/pnh2_vanderpol2}
 	\caption{EXAMPLE 1: (TOP) POLYNOMIAL DEGREE OF $x_{2}$ FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN) (TOP), (BOTTOM)
 	OPTIMAL $x_1$ PROFILE OBTAINED WITH  $\pnh$.}
 	\label{fig:pnh2vanderpol}
 \end{figure}
-The advantages of the $\pnh$ method, respect to the $ph$ one, are shown in Tab.~\ref{tab:tablevanderpol}, where the column "Mesh" indicates the type of discretization mesh, in particular, "Initial" refers to the initial mesh problem and $ph$ and $\pnh$ refers to the final mesh (hence, the one which guarantees the respect of the $\epsilon$ tolerance), of the~\cite{Patterson:OCAM:2015} and our method, respectively. Then "Vars" indicates the NLP variables of the resulting discretized OCP problem, "Sol. time" indicates the necessary time to solve the optimal control problem, and "Iter" refers to the number of algorithm iteration necessary to reach the given tolerance. Finally, "Tot. time" refers to the total CPU time necessary to reach the imposed convergence criterion, and $e_\text{max}$  is the maximum of the local error $\ekij$, hence
+The advantages of the $\pnh$ method, respect to the $ph$ one, are shown in Tab.~\ref{tab:tablevanderpol}. Here, the column \emph{Mesh} indicates the type of discretization mesh. In particular, \emph{Initial} refers to the initial mesh problem, instead $ph$ and $\pnh$ refer to the final mesh (hence, the one which guarantees the respect of the $\epsilon$ tolerance) of~\cite{Patterson:OCAM:2015} and of our method, respectively. Then \emph{Vars} indicates the NLP variables of the resulting discretized OCP problem, \emph{Sol.\,time} indicates the necessary time to solve the optimal control problem, and \emph{Iter} refers to the number of algorithm iteration necessary to reach the given tolerance. Instead, \emph{Tot.\,time} refers to the total CPU time necessary to reach the imposed convergence criterion. In particular, it includes the necessary time to build and solve all the NLP problems  (which are \emph{Iter} $+1$), and the necessary time to execute the mesh refinement algorithm. Finally, $e_\text{max}$  is the maximum of the local error $\ekij$, hence
 \begin{equation}
 e_\text{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\ k = 1, \dots, N}} (\ekij)
 \end{equation}
@@ -62,9 +62,9 @@ e_\text{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\
 		\begin{tabular}{c l l l c c c}
 			& & \\ % put some space after the caption
 			\hline
-			Mesh & Vars & Sol. time & Iter & Tot. time & $e_\text{max}$ \\
+			\emph{Mesh} & \emph{Vars} & \emph{Sol. time} & \emph{Iter} & \emph{Tot. time} & $e_\text{max}$ \\
 			\hline
-			Initial & 140 & 138ms & / & / &  $3.7\mathrm{e}{-2}$\\
+			\emph{Initial} & 140 & 138ms & / & / &  $3.7\mathrm{e}{-2}$\\
 			$ph$ & 918 & 500ms & 4 & 23.1s & $9.1\mathrm{e}{-4}$ \\
 			$\pnh$ & 769 & 400ms & 4 & 19s & $9.5\mathrm{e}{-4}$ \\
 			\hline
@@ -74,7 +74,7 @@ e_\text{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\
 %%%%
 \begin{figure}[t]
 	\centering
-	\includegraphics[trim={2cm 0cm 4cm 0cm},clip,width=1\columnwidth]{Img/delta_vanderpol}
+	\includegraphics[trim={2cm 0.5cm 4cm 0.3cm},clip,width=1\columnwidth]{Img/delta_vanderpol}
 	\caption{EXAMPLE 1: NODAL DIFFERENCES BETWEEN $\pnh$ AND $ph$ FINAL SOLUTIONS}
 	\label{fig:deltavanderpol}
 \end{figure}
@@ -108,17 +108,19 @@ The disk is controlled with two torques, $u_1$ for the steering action and $u_2$
 Eqn.~(\ref{eq:diskfinal1}). It is worth to remember that for a more compact notation $X = [x_1, x_2, x_3, x_4, x_5, x_6]$  and $U = [u_1, u_2]$.
 \begin{figure}[t]
 	\centering
-	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1\columnwidth]{Img/pnh1_disk1}
+	\includegraphics[trim={1cm 0.1cm 2cm 1.05cm},clip,width=1\columnwidth]{Img/pnh1_disk1}
 	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF FIRST STATE ($x_{1}$) FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
 		OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$.}
 	\label{fig:pnh1disk}
 \end{figure}
-In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (top panels) is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the third one ($x_3$), respectively. Even if for some state, as for example $x_1$, the $\pnh$ and $ph$ method seem to give, for certain sector of optimal solution, the same results, in terms of polynomial degree, there are other state as $x_3$ for which the two algorithm provide a very different mesh in terms of the final polynomial approximation.
+In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (top panels) is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of the first state component ($x_1$) and of the third one ($x_3$), respectively. Even if for some state, as for example $x_1$, the $\pnh$ and $ph$ method seem to give, for certain sector of optimal solution, the same results in terms of polynomial degree, there are other state as $x_3$ for which the two algorithm provide a very different mesh in terms of the final polynomial approximation.
+In particular, the fact that the green line is always at $d_\text{max}$ means that in each mesh interval, there is at least one state that needs that polynomial order, but applying the $\pnh$ method, avoid that each state is approximated with this highest polynomial degree. 
+In particular, considering the solution in the range 6-9s, the state $x_1$ needs the maximum achievable order ($d_\text{max} = 8$), this leads to approximate the state $x_2$ with the same highest degree for the $ph$ method, but with a lower degree if $\pnh$ method is adopted.
 Instead In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (bottom panels) the optimal profile of $x_1$ and $x_3$ are shown. In particular, considering the gray line and the collocation points in red, it is clear where the refinement acts more.
 %%%%%%%%%%%
 \begin{figure}[t]
 	\centering
-	\includegraphics[trim={1cm 0cm 2cm 1.05cm},clip,width=1.\columnwidth]{Img/pnh2_disk2}
+	\includegraphics[trim={1cm 0.1cm 2cm 1.05cm},clip,width=1.\columnwidth]{Img/pnh2_disk2}
 	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF THIRD STATE ($x_{3}$) FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
 	OPTIMAL $x_3$ PROFILE OBTAINED WITH $\pnh$.}
 	\label{fig:pnh2disk}
@@ -134,16 +136,17 @@ For what concerns the nodal differences (obtained as the difference between te n
 		\begin{tabular}{c l l l c c c}
 			& & \\ % put some space after the caption
 			\hline
-			Mesh & Vars & Sol. time & Iter & Tot. time & $e_\text{max}$ \\
+			\emph{Mesh} & \emph{Vars} & \emph{Sol. time} & \emph{Iter} & \emph{Tot. time} & $e_\text{max}$ \\
 			\hline
-			Initial & 400 & 643ms & / & / &  $3.6\mathrm{e}{-2}$\\
+			\emph{Initial} & 400 & 0.643s & / & / &  $3.6\mathrm{e}{-2}$\\
 			$ph$  & 6496 & 61.62s & 4 & 287.7s & $9.8\mathrm{e}{-4}$ \\
-			$\pnh$ & 4810 & 34.42s & 5 & 287.14s & $9.8\mathrm{e}{-4}$ \\
+			$\pnh$ & 4810 & 32.42s & 5 & 287.14s & $9.8\mathrm{e}{-4}$ \\
 			\hline
 		\end{tabular}
 	\end{center}
 \end{table}
-
+%\newline
+%\newline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Example 3: Free Flying Robot}
 Considering the optimal control problem of driving a free-flying robot with a propulsion system. The problem is taken from reference~\cite{Betts:book:2010}, with a modified cost function
@@ -166,7 +169,7 @@ where $x_1$ and $x_2$ are the inertial coordinates of the center of gravity, $x_
 %%%%%%%%%%%%%
 \begin{figure}[t]
 	\centering
-	\includegraphics[trim={1cm 0cm 2cm 0cm},clip,width=1.\linewidth]{Img/pnh1_free}
+	\includegraphics[trim={1cm 0.1cm 2cm 1.05cm},clip,width=1.\linewidth]{Img/pnh1_free}
 	\caption{EXAMPLE 3: (TOP) POLYNOMIAL DEGREE OF $x_{3}$ FOR THE INITIAL MESH (RED), FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM) OPTIMAL $x_3$ PROFILE OBTAINED WITH $\pnh$. }
 	\label{fig:pnh1free}
 \end{figure}
@@ -183,9 +186,9 @@ For what concerns the nodal differences, the maximum value is reached for $x_1$.
 		\begin{tabular}{c l l l c c c}
 			& & \\ % put some space after the caption
 			\hline
-			Mesh & Vars & Sol. time & Iter & Tot. time & $e_\text{max}$ \\
+			\emph{Mesh} & \emph{Vars} & \emph{Sol. time} & \emph{Iter} & \emph{Tot. time} & $e_\text{max}$ \\
 			\hline
-			Initial & 400 & 643ms & / & / &  $3.7\mathrm{e}{-2}$\\
+			\emph{Initial} & 400 & 0.643s & / & / &  $3.7\mathrm{e}{-2}$\\
 			$ph$  & 6944 & 79.75s & 4 & 367.06s & $8.9\mathrm{e}{-4}$ \\
 			$\pnh$ & 5550 & 63.63s & 4 & 271.26s & $9.2\mathrm{e}{-4}$ \\
 			\hline
