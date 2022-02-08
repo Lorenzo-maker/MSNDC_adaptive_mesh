@@ -45,7 +45,7 @@ Let us suppose that our goal is to keep the relative error $\ekij$ below a given
 For the sake of clarity, the method is shown as a pseudocode for the generic $S_k$ mesh interval. The Algorithm unfolds in two main passes: (i) the \emph{Exploration} pass and (ii) the \emph{Execution} pass.
 To better understand the pseudocode, some quantities appearing in it are worth explaining from the outset.
 
-With reference to {\bf Algorithm~\ref{alg:step1}}, $\dkis$ is the \emph{new} polynomial degree that is suggested by the algorithm, for the $i$-th state in the $S_k$ interval, to reach the prescribed tolerance $\epsilon$. The quantity $\Bki$ represents the number of subinterval into which $S_k$ should be split in order to meet the prescribed $\epsilon$ tolerance for the error of the $i$-th state component. If $\Bki = 1$, no subdivisions in $S_k$ are necessary. Correspondingly, if $\dkis = \dki$, no increment in the polynomial degree is required. Instead, $d_{min}$ and $d_{max}$ are the maximum and the minimum allowable polynomial degrees provided by the user.
+With reference to {\bf Algorithm~\ref{alg:step1}}, $\dkis$ is the \emph{new} polynomial degree that is suggested by the algorithm, for the $i$-th state in the $S_k$ interval, to reach the prescribed tolerance $\epsilon$. The quantity $\Bki$ represents the number of subinterval into which $S_k$ should be split in order to meet the prescribed $\epsilon$ tolerance for the error of the $i$-th state component. If $\Bki = 1$, no subdivisions in $S_k$ are necessary. Correspondingly, if $\dkis = \dki$, no increment in the polynomial degree is required. Instead, $d_\text{min}$ and $d_\text{max}$ are the maximum and the minimum allowable polynomial degrees provided by the user.
 %% Definire dmax, dmin, Bki, d*, epsilon
 \begin{algorithm}
 \caption{\emph{Exploration} pass of the $\pnh$ mesh refinement}\label{alg:step1}
@@ -57,10 +57,10 @@ With reference to {\bf Algorithm~\ref{alg:step1}}, $\dkis$ is the \emph{new} pol
 			\Else
 				\State $\Pki \gets \log_{\dki} \Bigg\lceil \max\limits_{j= 1, \dots, \dkip} \Bigg(\dfrac{\ekij}{\epsilon}\Bigg) \Bigg\rceil$
 				\State $\dkis \gets \dki + \Pki$ \Comment{increase degree}
-					\If {$ \dkis \leq d_{\max}$}
+					\If {$ \dkis \leq d_\text{max}$}
 						\State $\Bki \gets 1$		
 					\Else
-						\State $\Bki \gets \max\Bigg(\Bigg\lceil \dfrac{\dkis}{d_{min}}\Bigg\rceil, 2\Bigg)$ \Comment{split mesh}
+						\State $\Bki \gets \max\Bigg(\Bigg\lceil \dfrac{\dkis}{d_\text{min}}\Bigg\rceil, 2\Bigg)$ \Comment{split mesh}
 					\EndIf
 			\EndIf
 		\EndFor
@@ -95,7 +95,7 @@ The main idea is that, if all $\Bki$'s are equal to 1 and $\Dks = \Dk$, then the
 
  Instead, if only all $\Bki$'s are equal to 1, then the collected $\dkis$ should replace the degrees of the polynomials, according to a $p_n$-refinement strategy (${p_n}$-refinement).
 
-Alternatively, if at least one of the $\Bki$'s is greater than 1 -- for at least one state component a degree greater than $d_{\max}$ was required (cf. line 11 in {\bf Algorithm~\ref{alg:step1}}) -- a subdivision of the ``responsible'' interval/intervals takes place while the degrees are kept to the starting values $\dki$, thus following a $h$-refinement strategy ($h$-refinement).
+Alternatively, if at least one of the $\Bki$'s is greater than 1 -- for at least one state component a degree greater than $d_\text{max}$ was required (cf. line 11 in {\bf Algorithm~\ref{alg:step1}}) -- a subdivision of the ``responsible'' interval/intervals takes place while the degrees are kept to the starting values $\dki$, thus following a $h$-refinement strategy ($h$-refinement).
 
 In any case, at the end of the Execution pass, the new mesh (to be employed in the discretization of the next NLP to be solved), is encoded in the quantity $\dki$ and $\Bki$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$.
 
