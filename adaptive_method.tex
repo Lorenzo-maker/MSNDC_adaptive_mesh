@@ -21,12 +21,12 @@ On the other hand, a higher-order approximation of the state can be constructed 
 Let $\barXkidkip (\tau)$ be a polynomial of degree $\dkip$ that is defined for the $i$-th state on the $S_k$ interval. If the derivative of this polynomial matches the dynamics at each $\taudkip$ collocation points, $\barXkidkip (\tau)$ can be obtained by a numerical integration using the resulting quadrature scheme
 \begin{subequations}
 \begin{align}
-	&\barXkidkip (\tau) = \sum_{m=1}^{\dkip}\Big(\int_{0}^{\tau}\lmdki (\tau)d\tau\Big) f_i\Big(\Xkd(\taudkip_m), U_k\Big), \hspace{2mm} \text{with} \label{eq:barX}\\
+	&\barXkidkip (\tau) = \sum_{m=1}^{\dkip}\Big(\int_{0}^{\tau}\lmdki (\tau)d\tau\Big) f_i\Big(\Xkd \left(\taudkip_m \right), U_k\Big), \hspace{2mm} \text{with} \label{eq:barX}\\
 	&  \lmdki (\tau) = \prod_{r=1, r\neq m}^{\dkip} \dfrac{\tau - \taudkip_r}{\taudkip_m - \taudkip_r}. \label{eq:meshlm}
 \end{align}
 \end{subequations}
 
-Hence $\barXkidkip (\tau)$ represents the improved approximation and its values in $\taudkip$ will be denoted by $\barXkidkip (\taudkip_j)$, ($j = 1, \dots, \dkip$).
+Hence $\barXkidkip (\tau)$ represents the improved approximation and its values in $\taudkip$ will be denoted by $\barXkidkip \left(\taudkip_j \right)$, ($j = 1, \dots, \dkip$).
 
 With the above quantities, the \emph{absolute} error $\Ekij$ and the \emph{relative} error $\ekij$ computed at each $\taudkip_j$ for the $i$-th state in the $k$-th interval are defined as
 \begin{subequations}
@@ -86,7 +86,7 @@ The \emph{Execution} pass, presented in the form a pseudocode in {\bf Algorithm~
 		\Else
 			\For {$i = 1$ to $n_x$}
 				\State $\dki \gets \dki$
-				\State $\Bki \gets \max\limits_{i= 1, \dots, n_x}(\Bki)$ \Comment h-refinement
+				\State $\Bki \gets \max\limits_{i= 1, \dots, n_x}(\Bki)$ \Comment $h$-refinement
 			\EndFor		
 		\EndIf
 	\end{algorithmic}

@@ -21,12 +21,12 @@ driving a \emph{Van der Pol} oscillator to the origin. It can be expressed as fo
 \begin{subequations}\label{eq:vanderpol}
 	\begin{align}
 	\underset{X \in \mathbb{R}^{2}, \, U \in \mathbb{R}}{\text{minimize}}\hspace{8mm}
-	&J = \int_{0}^{T}(x_1^{2} + x_2^{2} + u^{2})\,dt  \label{eq:vancost}\\
+	&J = \int_{0}^{T}(x_1^{2} + x_2^{2} + u^{2})\,dt,  \label{eq:vancost}\\
 	\text{subject to} \hspace{8mm} 
-	&\dot{x}_1 = (1 - x_2^{2})x_{1} - x_2 + u \hspace{5mm} t \in[0,T] \label{eq:vandyn1}\\
-	& \dot{x}_2 = x_1 \hspace{28.5mm} t \in[0,T] \label{eq:vandyn2}\\
-	& -1  \leq u \leq 1,  \hspace{20mm} t \in[0,T] \label{eq:vanpath1}\\
-	& x_2 \geq -0.25,  \hspace{21.5mm} t \in[0,T] \label{eq:vanpath2}\\
+	&\dot{x}_1 = (1 - x_2^{2})x_{1} - x_2 + u, \hspace{5mm} t \in[0,T] \label{eq:vandyn1}\\
+	& \dot{x}_2 = x_1, \hspace{28.5mm} t \in[0,T] \label{eq:vandyn2}\\
+	& -1  \leq u \leq 1,  \hspace{21.2mm} t \in[0,T] \label{eq:vanpath1}\\
+	& x_2 \geq -0.25,  \hspace{22.5mm} t \in[0,T] \label{eq:vanpath2}\\
 	 x_1(0) &= 0, \hspace{2mm} x_2(0) = 1, \label{eq:initial1}		
 	%& x_2(0) = 1, \label{eq:intial2}		
 	\end{align}
@@ -51,7 +51,7 @@ In Figs.~\ref{fig:pnh1vanderpol}--\ref{fig:pnh2vanderpol} (bottom panels) the st
 	OPTIMAL $x_1$ PROFILE OBTAINED WITH  $\pnh$.}
 	\label{fig:pnh2vanderpol}
 \end{figure}
-The advantages of the $\pnh$ method with respect to the $ph$ one are shown in Table~\ref{tab:tablevanderpol}. Here, the \emph{Mesh} column indicates the type of discretization mesh. In particular, \emph{Initial} refers to the mesh of the initial problem, whereas $ph$ and $\pnh$ refer to the final meshes produced by applying the methods in~\cite{Patterson:OCAM:2015} and ours, respectively. It is worth remarking that both of them comply with the prescribed tolerance $\epsilon=10^{-3}$. Furthermore, \emph{Vars} indicates the number of variables of the NLP associated to the transcribed OCP. Then, \emph{Soln. time} indicates the time to solution of the optimal control problem with the refined mesh. Finally, \emph{Iter} refers to the number of algorithm iterations needed to reach the prescribed accuracy, whereas \emph{Tot.\,time} is the total CPU time elapsed to reach the imposed convergence criterion. It is worth remarking that it includes the necessary time to build and solve all the \emph{Iter} $+1$ number of successive NLP problems and the time spent by the application of a number of \emph{Iter} mesh refinement algorithms. Finally, $e_{\max}$  is the maximum of the local error $\ekij$, hence
+The advantages of the $\pnh$ method with respect to the $ph$ one are shown in Table~\ref{tab:tablevanderpol}. Here, the \emph{Mesh} column indicates the type of discretization mesh. In particular, \emph{Initial} refers to the mesh of the initial problem, whereas $ph$ and $\pnh$ refer to the final meshes produced by applying the methods in~\cite{Patterson:OCAM:2015} and ours, respectively. It is worth remarking that both of them comply with the prescribed tolerance $\epsilon=10^{-3}$. Furthermore, \emph{Vars} indicates the number of variables of the NLP associated to the transcribed OCP. Then, \emph{Soln. time} indicates the time to solution of the optimal control problem with the refined mesh. Hence, \emph{Iter} refers to the number of algorithm iterations needed to reach the prescribed accuracy, whereas \emph{Tot.\,time} is the total CPU time elapsed to reach the imposed convergence criterion. It is worth remarking that it includes the necessary time to build and solve all the \emph{Iter} $+1$ number of successive NLP problems and the time spent by the application of a number of \emph{Iter} mesh refinement algorithms. Finally, $e_{\max}$  is the maximum of the local error $\ekij$, hence
 \begin{equation}
 e_\text{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\ k = 1, \dots, N}} (\ekij)
 \end{equation}

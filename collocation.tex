@@ -32,7 +32,7 @@ which represents, in the generic interval $S_k$ and for a given $\tau$, the eval
 
 In \emph{direct collocation} Eqn.~(\ref{eq:dyn}), for the $i$-th state on the $k$-th interval, reads as
 \begin{equation}\label{eq:colloc}
-\Vki(\taujdki) = f_i(\Xkd(\taujdki),  U_k)\, \hk, \hspace{5mm} j = 1, \dots, \dki
+\Vki \left(\taujdki \right) = f_i\left(\Xkd \left(\taujdki\right),  U_k\right)\, \hk, \hspace{5mm} j = 1, \dots, \dki
 \end{equation}
 where $\taujdki$ is the $j$-th collocation point for the $i$-th state and $f_i(\cdot)$ is the $i$-th component of the vector field representing system dynamics. Eqns.~\eqref{eq:colloc} have to be imposed for all state components ($i = 1, \dots, n_x$) and for all mesh interval ($k = 1, \dots, N$).
 
@@ -76,7 +76,7 @@ From this polynomial approximation the numerical integral $J_k$ of the running c
 \begin{equation}\label{eq:nlpcostk}
 	J_k = \sum_{m=1}^{\bardk}\Big(\int_{0}^{1}\lmbd(\tau)d\tau\Big)\gkm \hk.
 \end{equation}
-With the equations shown in this section it is possible to transform the original OCP into an NLP by writing them for $k = 1, \dots, N$, and considering that the total cost function $J$ that has to be minimized is given by $J = \sum_{k=1}^{N}J_k$.
+With the equations shown in this section it is possible to transform the original OCP into an NLP by writing them for $k = 1, \dots, N$, and considering that the total cost function $J$, that has to be minimized, is given by $J = \sum_{k=1}^{N}J_k$.
 
 It is worth noting that, unlike~\cite{Patterson:OCAM:2015} where the dynamics is collocated using the \emph{implicit integral form}, here the \emph{differential form} is used.
 Furthermore, even if the collocation method was generalized by using a different degree for the polynomial approximation of $i$-th state on the $k$-th mesh interval, by choosing a degree $d$ in a way that $\dki = d$, for $i = 1, \dots, n_x$ and $k = 1, \dots, N$, the classical collocation method can be implemented.
