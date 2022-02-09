@@ -40,7 +40,6 @@ To completely define the state polynomial, it is necessary to add the continuity
 \begin{equation}\label{eq:continuity}
 \Xkd(1) - X_k = 0, \hspace{5mm} k = 1, \dots, N-1
 \end{equation}
-
 where the nodal values of the state are linked to the $\xkim$ by the following equation
 \begin{equation}
 X_k = [\xkpuu{1}, \dots, \xkpuu{i}, \dots, \xkpuu{n_{x}}], \hspace{5mm} k = 1, \dots, N-1
@@ -71,7 +70,6 @@ As regards the cost function, the integral of Eqn.~(\ref{eq:cost}) is numericall
 	&  \lmbdm (\tau) = \prod_{r=1, r\neq m}^{\bardk} \dfrac{\tau - \taubardk_{r}}{\taubardk_{m} - \taubardk_{r}}, \label{eq:nlplm}
 	\end{align}
 \end{subequations}
-
 where $\bardk = \max\limits_{i= 1, \dots, n_x}(\dki)$, $\bardkm = \bardk -1$, $\lmbdm$ are the Lagrange polynomials of degree $\bardkm$, $\taubardk$ are the $\bardk$ Gauss-Legendre collocation points, and $\gkm$ is the value of $g_k (\tau)$ at $\taubardk_{m}$.
 
 From this polynomial approximation the numerical integral $J_k$ of the running cost function $g(t)$ in the $k$-th element can be obtained from the following equation

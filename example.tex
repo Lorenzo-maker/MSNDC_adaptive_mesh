@@ -22,8 +22,8 @@ driving a \emph{Van der Pol} oscillator to the origin. It can be expressed as fo
 	\begin{align}
 	\underset{X \in \mathbb{R}^{2}, \, U \in \mathbb{R}}{\text{minimize}}\hspace{8mm}
 	&J = \int_{0}^{T}(x_1^{2} + x_2^{2} + u^{2})\,dt  \label{eq:vancost}\\
-	\text{subject to} \hspace{8mm}
-	& \dot{x}_1 = (1 - x_2^{2})x_{1} - x_2 + u \hspace{5mm} t \in[0,T] \label{eq:vandyn1}\\
+	\text{subject to} \hspace{8mm} 
+	&\dot{x}_1 = (1 - x_2^{2})x_{1} - x_2 + u \hspace{5mm} t \in[0,T] \label{eq:vandyn1}\\
 	& \dot{x}_2 = x_1 \hspace{28.5mm} t \in[0,T] \label{eq:vandyn2}\\
 	& -1  \leq u \leq 1,  \hspace{20mm} t \in[0,T] \label{eq:vanpath1}\\
 	& x_2 \geq -0.25,  \hspace{21.5mm} t \in[0,T] \label{eq:vanpath2}\\
@@ -33,10 +33,10 @@ driving a \emph{Van der Pol} oscillator to the origin. It can be expressed as fo
 \end{subequations}
 where $T = 10$ s, $x_1$ and $x_2$ are the two state components (hence $X(t) = [x_1(t), x_2(t)]\in \bbR^2$), $u\in\bbR$ indicates the control, and the dynamics constraints and the initial conditions are shown explicitly for each state component. Clearly, $\dot{X}(t) = [\dot{x}_1(t), \dot{x}_2(t)]$.
 
-In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} (top panels) the final degrees of the first ($x_1$) and the second ($x_2$) state components, respectively, are shown. Here, the blue line is the outcome of the $\pnh$-mesh refinement algorithm whereas the green line is the result of the $ph$-one. With respect to the red line, which represents the initial degree, each method increases the degrees of the polynomials approximating the states. It is worth noting that the green line is the same for both figures, meaning that, according to the $ph$ logic, all the states share the same (maximum) polynomial order in the same interval $S_k$. Instead, the blue lines are different, meaning that each state has reached an independent degree for its polynomial approximation.
+In Figs.~\ref{fig:pnh1vanderpol}--\ref{fig:pnh2vanderpol} (top panels) the final degrees of the first ($x_1$) and the second ($x_2$) state components, respectively, are shown. Here, the blue line is the outcome of the $\pnh$-mesh refinement algorithm whereas the green line is the result of the $ph$-one. With respect to the red line, which represents the initial degree, each method increases the degrees of the polynomials approximating the states. It is worth noting that the green line is the same for both figures, meaning that, according to the $ph$ logic, all the states share the same (maximum) polynomial order in the same interval $S_k$. Instead, the blue lines are different, meaning that each state has reached an independent degree for its polynomial approximation.
 Furthermore, with respect to the initial $S_k$ steps delimited by the dashed gray lines, the more packed green and blue markers of the final solutions reveal where the $h$-strategy was adopted, thus producing a finer mesh.
 
-In Figs.~\ref{fig:pnh1vanderpol}-\ref{fig:pnh2vanderpol} (bottom panels) the state profiles obtained with the $\pnh$ final mesh are shown. Here, the dashed gray lines delimit the \emph{final} mesh intervals. In particular, the nodal values are shown in blue, whereas the collocation points are plotted in red. These figures clearly show that the $\pnh$-adaptive mesh refinement method increases the polynomial order (more collocation points) and increases the mesh density (more mesh points) selectively for each state only where it is needed (higher gradient).
+In Figs.~\ref{fig:pnh1vanderpol}--\ref{fig:pnh2vanderpol} (bottom panels) the state profiles obtained with the $\pnh$ final mesh are shown. Here, the dashed gray lines delimit the \emph{final} mesh intervals. In particular, the nodal values are shown in blue, whereas the collocation points are plotted in red. These figures clearly show that the $\pnh$-adaptive mesh refinement method increases the polynomial order (more collocation points) and increases the mesh density (more mesh points) selectively for each state only where it is needed (higher gradient).
 \begin{figure}[t]
 	\centering
 	\includegraphics[trim={1cm 0.1cm 2cm 0.5cm},clip,width=1\columnwidth]{Img/pnh1_vanderpol1}
@@ -59,14 +59,14 @@ e_\text{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\
 	\caption{EXAMPLE 1: MESH REFINEMENT RESULTS FOR THE THREE DIFFERENT TYPE OF MESH (INITIAL MESH, $ph$ FINAL MESH AND $\pnh$ FINAL MESH)}
 	\begin{center}
 		\label{tab:tablevanderpol}
-		\begin{tabular}{c l l l c c c}
+		\begin{tabular}{c c c c c c c}
 			& & \\ % put some space after the caption
 			\hline
 			\emph{Mesh} & \emph{Vars} & \emph{Soln. time} & \emph{Iter} & \emph{Tot. time} & $e_\text{max}$ \\
 			\hline
-			\emph{Initial} & 140 & 138ms & / & / &  $3.7\cdot 10^{-2}$\\
-			$ph$ & 918 & 500ms & 4 & 23.1s & $9.1\cdot 10^{-4}$ \\
-			$\pnh$ & 769 & 400ms & 4 & 19s & $9.5\cdot 10^{-4}$ \\
+			\emph{Initial} & 140 & 138 ms & / & / &  $3.7\cdot 10^{-2}$\\
+			$ph$ & 918 & 500 ms & 4 & 23.1 s & $9.1\cdot 10^{-4}$ \\
+			$\pnh$ & 769 & 400 ms & 4 & 19.0 s & $9.5\cdot 10^{-4}$ \\
 			\hline
 		\end{tabular}
 	\end{center}
@@ -133,7 +133,6 @@ In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (bottom panels) the optimal profi
 	\label{fig:pnh2disk}
 \end{figure}
 %%%%%%%%%%%%%%
-
 The advantages of the $\pnh$ method with respect to the $ph$ one, are summarized in Table~\ref{tab:tabledisk}. Is is interesting to note that, even if $\pnh$ method needs an extra iteration, it maintains a total time equal to the $ph$ method. Furthermore, under the same $e_{\max}$, the number of variables involved in the last NLP (leading to the most accurate solution) of $\pnh$ are 25\% less than the original method. This represent a noteworthy reduction.
 
 For what concerns the nodal deviations of the $\pnh$ and $ph$ solutions at nodal values, the maximum value is registered for $u_2$. Again, this difference is in the order of $10^{-6}$, which is absolutely negligible given the control signal $u_2$ in the order of $10^0$. Therefore, the two methods lead to equally accurate solutions.
@@ -141,14 +140,14 @@ For what concerns the nodal deviations of the $\pnh$ and $ph$ solutions at nodal
 	\caption{EXAMPLE 2: MESH REFINEMENT RESULTS FOR THE THREE DIFFERENT TYPE OF MESH (INITIAL MESH, $ph$ FINAL MESH AND $\pnh$ FINAL MESH)}
 	\begin{center}
 		\label{tab:tabledisk}
-		\begin{tabular}{c l l l c c c}
+		\begin{tabular}{c c c c c c c}
 			& & \\ % put some space after the caption
 			\hline
 			\emph{Mesh} & \emph{Vars} & \emph{Soln. time} & \emph{Iter} & \emph{Tot. time} & $e_\text{max}$ \\
 			\hline
-			\emph{Initial} & 400 & 0.643s & / & / &  $3.6\cdot 10^{-2}$\\
-			$ph$  & 6496 & 61.62s & 4 & 287.7s & $9.8\cdot 10^{-4}$ \\
-			$\pnh$ & 4810 & 32.42s & 5 & 287.14s & $9.8\cdot 10^{-4}$ \\
+			\emph{Initial} & 400 & 0.643 s & / & / &  $3.6\cdot 10^{-2}$\\
+			$ph$  & 6496 & 61.6 s & 4 & 287.7 s & $9.8\cdot 10^{-4}$ \\
+			$\pnh$ & 4810 & 32.4 s & 5 & 287.1 s & $9.8\cdot 10^{-4}$ \\
 			\hline
 		\end{tabular}
 	\end{center}
@@ -183,23 +182,23 @@ where $x_1$ and $x_2$ are the inertial coordinates of the center of gravity, $x_
 \end{figure}
 %%%%%%%%%%%%%%%%
 
-Due to space constraints, in Figure~\ref{fig:pnh1free}, only the results for the thrust direction $x_3$ are depicted. Clearly, the final order required by $\pnh$ method is very different from the $ph$ counterpart. Furthermore, considering the state profile, it is worth observing that the $h$-refiment strategy is favored at the begging and at the end of the trajectory.
+Due to space constraints, in Figure~\ref{fig:pnh1free}, only the results for the thrust direction $x_3$ are depicted. Clearly, the final order required by $\pnh$ method is very different from the $ph$ counterpart. Furthermore, considering the state profile, it is worth observing that the $h$-refinement strategy is favored at the beginning and at the end of the trajectory.
 
-The advantages of the $\pnh$ method with to the $ph$ one, are shown in Table~\ref{tab:tablefree}. Under the same practical accuracy, $\pnh$ method guarantees $\sim 20\%$ less NLP variables involved and $\sim 27\%$ reduction in total time with respect to the $ph$ counterpart.
+The advantages of the $\pnh$ method with to the $ph$ one, are shown in Table~\ref{tab:tablefree}. Under the same practical accuracy, $\pnh$ method guarantees about $20\%$ less NLP variables involved and about $27\%$ reduction in total time with respect to the $ph$ counterpart.
 
 As for nodal differences between $\pnh$ and $ph$ solutions, the maximum value is reached for state $x_1$. A maximum difference in the order of $10^{-7}$ reveals that it is practically negligible given a state $x_1$ in the order of $10^0$. Hence, the two methods lead to the same solution.
 \begin{table}[t]
 	\caption{EXAMPLE 3: MESH REFINEMENT RESULTS FOR THE THREE DIFFERENT TYPE OF MESH (INITIAL MESH, $ph$ FINAL MESH AND $\pnh$ FINAL MESH)}
 	\begin{center}
 		\label{tab:tablefree}
-		\begin{tabular}{c l l l c c c}
+		\begin{tabular}{c c c c c c c}
 			& & \\ % put some space after the caption
 			\hline
 			\emph{Mesh} & \emph{Vars} & \emph{Soln. time} & \emph{Iter} & \emph{Tot. time} & $e_\text{max}$ \\
 			\hline
-			\emph{Initial} & 400 & 0.643s & / & / &  $3.7 \cdot 10^{-2}$\\
-			$ph$  & 6944 & 79.75s & 4 & 367.06s & $8.9\cdot 10^{-4}$ \\
-			$\pnh$ & 5550 & 63.63s & 4 & 271.26s & $9.2\cdot 10^{-4}$ \\
+			\emph{Initial} & 400 & 0.643 s & / & / &  $3.7 \cdot 10^{-2}$\\
+			$ph$  & 6944 & 79.8 s & 4 & 367.1 s & $8.9\cdot 10^{-4}$ \\
+			$\pnh$ & 5550 & 63.6 s & 4 & 271.3 s & $9.2\cdot 10^{-4}$ \\
 			\hline
 		\end{tabular}
 	\end{center}
