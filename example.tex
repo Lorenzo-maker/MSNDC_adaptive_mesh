@@ -36,7 +36,7 @@ where $T = 10$ s, $x_1$ and $x_2$ are the two state components (hence $X(t) = [x
 In Figs.~\ref{fig:pnh1vanderpol}--\ref{fig:pnh2vanderpol} (top panels) the final degrees of the first ($x_1$) and the second ($x_2$) state components, respectively, are shown. Here, the blue line is the outcome of the $\pnh$-mesh refinement algorithm whereas the green line is the result of the $ph$-one. With respect to the red line, which represents the initial degree, each method increases the degrees of the polynomials approximating the states. It is worth noting that the green line is the same for both figures, meaning that, according to the $ph$ logic, all the states share the same (maximum) polynomial order in the same interval $S_k$. Instead, the blue lines are different, meaning that each state has reached an independent degree for its polynomial approximation.
 Furthermore, with respect to the initial $S_k$ steps delimited by the dashed gray lines, the more packed green and blue markers of the final solutions reveal where the $h$-strategy was adopted, thus producing a finer mesh.
 
-In Figs.~\ref{fig:pnh1vanderpol}--\ref{fig:pnh2vanderpol} (bottom panels) the state profiles obtained with the $\pnh$ final mesh are shown. Here, the dashed gray lines delimit the \emph{final} mesh intervals. In particular, the nodal values are shown in blue, whereas the collocation points are plotted in red. These figures clearly show that the $\pnh$-adaptive mesh refinement method increases the polynomial order (more collocation points) and increases the mesh density (more mesh points) selectively for each state only where it is needed (higher gradient).
+In Figs.~\ref{fig:pnh1vanderpol}--\ref{fig:pnh2vanderpol} (bottom panels) the state profiles obtained with the $\pnh$ final mesh are shown. Here, the dashed gray lines delimit the \emph{final} mesh intervals. In particular, the nodal values are shown in blue, whereas the collocation points are plotted in red. These figures clearly show that the $\pnh$-adaptive mesh refinement method increases the polynomial order (more collocation points) and increases the mesh density (more mesh points) selectively for each state only where they are needed (higher gradient).
 \begin{figure}[t]
 	\centering
 	\includegraphics[trim={1cm 0.1cm 2cm 0.5cm},clip,width=1\columnwidth]{Img/pnh1_vanderpol1}
@@ -51,7 +51,7 @@ In Figs.~\ref{fig:pnh1vanderpol}--\ref{fig:pnh2vanderpol} (bottom panels) the st
 	OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$ ALGORITHM.}
 	\label{fig:pnh2vanderpol}
 \end{figure}
-The advantages of the $\pnh$ method with respect to the $ph$ one are shown in Table~\ref{tab:tablevanderpol}. Here, the \emph{Mesh} column indicates the type of discretization mesh. In particular, \emph{Initial} refers to the mesh of the initial problem, whereas $ph$ and $\pnh$ refer to the final meshes produced by applying the methods in~\cite{Patterson:OCAM:2015} and ours, respectively. It is worth remarking that both of them comply with the prescribed tolerance $\epsilon=10^{-3}$. Furthermore, \emph{Vars} indicates the number of variables of the NLP associated to the transcribed OCP. Then, \emph{Soln. time} indicates the time to solution of the optimal control problem with the refined mesh. Hence, \emph{Iter} refers to the number of algorithm iterations needed to reach the prescribed accuracy, whereas \emph{Tot.\,time} is the total CPU time elapsed to reach the imposed convergence criterion. It is worth remarking that it includes the necessary time to build and solve all the \emph{Iter} $+1$ number of successive NLP problems and the time spent by the application of a number of \emph{Iter} mesh refinement algorithms. Finally, $e_{\max}$  is the maximum of the local error $\ekij$, hence
+The advantages of the $\pnh$ method with respect to the $ph$ one are shown in Table~\ref{tab:tablevanderpol}. Here, the \emph{Mesh} column indicates the type of discretization mesh. In particular, \emph{Initial} refers to the mesh of the initial problem, whereas $ph$ and $\pnh$ refer to the final meshes produced by applying the methods in~\cite{Patterson:OCAM:2015} and ours, respectively. It is worth remarking that both of them comply with the prescribed tolerance $\epsilon=10^{-3}$. Furthermore, \emph{Vars} indicates the number of variables of the NLP associated to the final transcribed OCP. Then, \emph{Soln. time} indicates the time to solution of the optimal control problem with the refined mesh. Hence, \emph{Iter} refers to the number of algorithm iterations needed to reach the prescribed accuracy, whereas \emph{Tot.\,time} is the total CPU time elapsed to reach the imposed convergence criterion. It is worth remarking that it includes the necessary time to build and solve all the \emph{Iter} $+1$ number of successive NLP problems and the time spent by the application of a number of \emph{Iter} mesh refinement algorithms. Finally, $e_{\max}$  is the maximum of the local error $\ekij$, hence
 \begin{equation}
 e_\text{max}= \max\limits_{\substack{j = 1, \dots, \dkip \\ i = 1, \dots, n_x \\ k = 1, \dots, N}} (\ekij)
 \end{equation}
@@ -85,7 +85,7 @@ In Figure~\ref{fig:deltavanderpol}, the deviations between the $\pnh$ and $ph$ f
 Given that both the states $x_1$ and $x_2$ and the control $u$ are in the order of $10^{0}$, the deviations $\Delta(\cdot)$ are absolutely negligible and the two solutions are practically the same.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Example 2: Rolling (Not Falling) Disk}
-The second optimal control problem consists in driving a rolling (not falling) disk on an horizontal $x$-$y$ plane from an initial position to a final one, while minimizing the control action. This can be expressed as follows
+The second optimal control problem consists in driving a rolling (not falling) disk on an horizontal $xy$-plane from an initial position to a final one, while minimizing the control action. This can be expressed as follows
 \begin{subequations}\label{eq:disk}
 	\begin{align}
 	\underset{X \in \mathbb{R}^{6}, \, U \in \mathbb{R}^{2}}{\text{minimize}}\hspace{8mm}
@@ -119,9 +119,9 @@ Eqn.~(\ref{eq:diskfinal1}). It is worth recalling that, for a more compact notat
 	\label{fig:pnh1disk}
 \end{figure}
 In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (top panels) is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of state $x_1$ (horizontal coordinate) and of state $x_3$ (heading angle), respectively.
-With reference to Figure~\ref{fig:pnh1disk} (top panel), both $\pnh$ and $ph$ return for state $x_1$ almost the same polynomial degree for the whole time horizon. However, as evident from Figure~\ref{fig:pnh2disk} (top panel), for state $x_3$ the two algorithms provide very different polynomial degrees for most of the time horizon.
-In particular, the green line always at $d_{\max}=8$ imply that in each mesh interval, there is at least one state (different from $x_3$, surely $x_1$) that requires that particular polynomial order. Instead, by applying the $\pnh$ method, each state is approximated with a polynomial degree that is \emph{just right}.
-More in details, considering the solution in the range 6-9s, the state $x_1$ requires the maximum achievable order $d_\text{max} = 8$. This leads to an overkill in the approximation of the state $x_3$ with the same degree for the $ph$ method, while a lower degree as suggested by the $\pnh$ method is sufficient.
+With reference to Figure~\ref{fig:pnh1disk} (top panel), both $\pnh$ and $ph$ return, for state $x_1$, almost the same polynomial degree for the whole time horizon. However, as evident from Figure~\ref{fig:pnh2disk} (top panel), for state $x_3$ the two algorithms provide very different polynomial degrees for most of the time horizon.
+In particular, the green line is always at $d_{\max}=8$. This implies that, in each mesh interval, there is at least one state (different from $x_3$, surely $x_1$) that requires that particular polynomial order. Instead, by applying the $\pnh$ method, each state is approximated with a polynomial degree that is \emph{just right}.
+More in details, considering the solution in the range 6-9s, the state $x_1$ requires the maximum achievable order $d_\text{max} = 8$. This leads to an overkill in the approximation of the state $x_3$ with the same degree for the $ph$ method, while a lower degree, as suggested by the $\pnh$ method, is sufficient.
 
 In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (bottom panels) the optimal profile of $x_1$ and $x_3$ are shown. In particular, considering the gray line and the collocation points in red, it is evident where the subdivision of the mesh intervals kicks in.
 %%%%%%%%%%%
@@ -133,7 +133,7 @@ In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (bottom panels) the optimal profi
 	\label{fig:pnh2disk}
 \end{figure}
 %%%%%%%%%%%%%%
-The advantages of the $\pnh$ method with respect to the $ph$ one, are summarized in Table~\ref{tab:tabledisk}. Is is interesting to note that, even if $\pnh$ method needs an extra iteration, it maintains a total time equal to the $ph$ method. Furthermore, under the same $e_{\max}$, the number of variables involved in the last NLP (leading to the most accurate solution) of $\pnh$ are 25\% less than the original method. This represent a noteworthy reduction.
+The advantages of the $\pnh$ method with respect to the $ph$ one, are summarized in Table~\ref{tab:tabledisk}. It is interesting to note that, even if $\pnh$ method needs an extra iteration, it maintains a total time equal to the $ph$ method. Furthermore, under the same tolerance $e_{\max}$, the number of variables involved in the last NLP (leading to the most accurate solution) of $\pnh$ are 25\% less than the original method. This represent a noteworthy reduction.
 
 For what concerns the nodal deviations of the $\pnh$ and $ph$ solutions at nodal values, the maximum value is registered for $u_2$. Again, this difference is in the order of $10^{-6}$, which is absolutely negligible given the control signal $u_2$ in the order of $10^0$. Therefore, the two methods lead to equally accurate solutions.
 \begin{table}[t]
@@ -182,9 +182,9 @@ where $x_1$ and $x_2$ are the inertial coordinates of the center of gravity, $x_
 \end{figure}
 %%%%%%%%%%%%%%%%
 
-Due to space constraints, in Figure~\ref{fig:pnh1free}, only the results for the thrust direction $x_3$ are depicted. Clearly, the final order required by $\pnh$ method is very different from the $ph$ counterpart. Furthermore, considering the state profile, it is worth observing that the $h$-refinement strategy is favored at the beginning and at the end of the trajectory.
+Due to space limitations, in Figure~\ref{fig:pnh1free}, only the results for the thrust direction $x_3$ are depicted. Clearly, the final order required by the $\pnh$ method is very different from the $ph$ counterpart. Furthermore, considering the state profile, it is worth observing that the $h$-refinement strategy is favored at the beginning and at the end of the trajectory.
 
-The advantages of the $\pnh$ method with to the $ph$ one, are shown in Table~\ref{tab:tablefree}. Under the same practical accuracy, $\pnh$ method guarantees about $20\%$ less NLP variables involved and about $27\%$ reduction in total time with respect to the $ph$ counterpart.
+The advantages of the $\pnh$ method with respect to the $ph$ one, are shown in Table~\ref{tab:tablefree}. Under the same practical accuracy, $\pnh$ method guarantees about $20\%$ less NLP variables involved and about $27\%$ reduction in total time with respect to the $ph$ analogue.
 
 As for nodal differences between $\pnh$ and $ph$ solutions, the maximum value is reached for state $x_1$. A maximum difference in the order of $10^{-7}$ reveals that it is practically negligible given a state $x_1$ in the order of $10^0$. Hence, the two methods lead to the same solution.
 \begin{table}[t]

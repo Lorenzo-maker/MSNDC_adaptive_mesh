@@ -2,7 +2,7 @@
 
 In this section a $\pnh$-adaptive mesh refinement method is developed. In particular, the generic OCP problem is first transcribed into an NLP using the \emph{direct collocation} method, explained above, then the mesh refinement method is applied to the obtained optimal solution.
 The $\pnh$ method explained here is closely related to~\cite{Patterson:OCAM:2015}. In particular, the method for estimating the error in the current solution is adapted from the aforementioned reference. The key novelty here is the refinement strategy.
-In~\cite{Patterson:OCAM:2015}, the adjustment of the polynomial degree is perfomed such that all states are represented by the same degree. Instead, in this work, the $p$-refinement is different for each state. Instead, similarly to~\cite{Patterson:OCAM:2015}, the mesh spacing is adjusted only if the approach to reach convergence by solely increasing the polynomial degree fails.
+In~\cite{Patterson:OCAM:2015}, the adjustment of the polynomial degree is perfomed such that all states are represented by the same degree. Instead, in this work, the $p$-refinement is different for each state. Then, similarly to aforementioned work, the mesh spacing is adjusted only if the approach to reach convergence by increasing the polynomial degree fails.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -97,7 +97,7 @@ The main idea is that, if all $\Bki$'s are equal to 1 and $\Dks = \Dk$, then the
 
 Alternatively, if at least one of the $\Bki$'s is greater than 1 -- for at least one state component a degree greater than $d_\text{max}$ was required (cf. line 11 in {\bf Algorithm~\ref{alg:step1}}) -- a subdivision of the ``responsible'' interval/intervals takes place while the degrees are kept to the starting values $\dki$, thus following a $h$-refinement strategy ($h$-refinement).
 
-In any case, at the end of the Execution pass, the new mesh (to be employed in the discretization of the next NLP to be solved), is encoded in the quantity $\dki$ and $\Bki$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$.
+In any event, at the end of the Execution pass, the new mesh (to be employed in the discretization of the next NLP to be solved), is encoded in the quantity $\dki$ and $\Bki$ for $i = 1, \dots, n_x$ and for $k = 1, \dots, N$.
 
 After the solution of the new NLP with the refined mesh, the same strategy can be applied until convergence. Converge is obtained when hitting line 3 of {\bf Algorithm~\ref{alg:step2}}.
 
