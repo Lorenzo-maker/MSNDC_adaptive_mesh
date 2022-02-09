@@ -22,7 +22,7 @@ driving a \emph{Van der Pol} oscillator to the origin. It can be expressed as fo
 	\begin{align}
 	\underset{X \in \mathbb{R}^{2}, \, U \in \mathbb{R}}{\text{minimize}}\hspace{8mm}
 	&J = \int_{0}^{T}(x_1^{2} + x_2^{2} + u^{2})\,dt,  \label{eq:vancost}\\
-	\text{subject to} \hspace{8mm} 
+	\text{subject to} \hspace{8mm}
 	&\dot{x}_1 = (1 - x_2^{2})x_{1} - x_2 + u, \hspace{5mm} t \in[0,T] \label{eq:vandyn1}\\
 	& \dot{x}_2 = x_1, \hspace{28.5mm} t \in[0,T] \label{eq:vandyn2}\\
 	& -1  \leq u \leq 1,  \hspace{21.2mm} t \in[0,T] \label{eq:vanpath1}\\
@@ -40,15 +40,15 @@ In Figs.~\ref{fig:pnh1vanderpol}--\ref{fig:pnh2vanderpol} (bottom panels) the st
 \begin{figure}[t]
 	\centering
 	\includegraphics[trim={1cm 0.1cm 2cm 0.5cm},clip,width=1\columnwidth]{Img/pnh1_vanderpol1}
-	\caption{EXAMPLE 1:  (TOP) POLYNOMIAL DEGREE OF $x_{1}$ FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
-	OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$.}
+	\caption{EXAMPLE 1:  (TOP) POLYNOMIAL DEGREE OF $x_{1}$ FOR THE INITIAL MESH (RED), FOR $\pnh$ ALGORITHM (BLUE), AND FOR $ph$ ALGORITHM (GREEN); (BOTTOM)
+	OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$ ALGORITHM.}
 	\label{fig:pnh1vanderpol}
 \end{figure}
 \begin{figure}[t]
 	\centering
 	\includegraphics[trim={1cm 0.1cm 2cm 0.5cm},clip,width=1\columnwidth]{Img/pnh2_vanderpol2}
-	\caption{EXAMPLE 1: (TOP) POLYNOMIAL DEGREE OF $x_{2}$ FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN) (TOP), (BOTTOM)
-	OPTIMAL $x_1$ PROFILE OBTAINED WITH  $\pnh$.}
+	\caption{EXAMPLE 1: (TOP) POLYNOMIAL DEGREE OF $x_{2}$ FOR THE INITIAL MESH (RED), FOR $\pnh$ ALGORITHM (BLUE), AND FOR $ph$ ALGORITHM (GREEN) (TOP); (BOTTOM)
+	OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$ ALGORITHM.}
 	\label{fig:pnh2vanderpol}
 \end{figure}
 The advantages of the $\pnh$ method with respect to the $ph$ one are shown in Table~\ref{tab:tablevanderpol}. Here, the \emph{Mesh} column indicates the type of discretization mesh. In particular, \emph{Initial} refers to the mesh of the initial problem, whereas $ph$ and $\pnh$ refer to the final meshes produced by applying the methods in~\cite{Patterson:OCAM:2015} and ours, respectively. It is worth remarking that both of them comply with the prescribed tolerance $\epsilon=10^{-3}$. Furthermore, \emph{Vars} indicates the number of variables of the NLP associated to the transcribed OCP. Then, \emph{Soln. time} indicates the time to solution of the optimal control problem with the refined mesh. Hence, \emph{Iter} refers to the number of algorithm iterations needed to reach the prescribed accuracy, whereas \emph{Tot.\,time} is the total CPU time elapsed to reach the imposed convergence criterion. It is worth remarking that it includes the necessary time to build and solve all the \emph{Iter} $+1$ number of successive NLP problems and the time spent by the application of a number of \emph{Iter} mesh refinement algorithms. Finally, $e_{\max}$  is the maximum of the local error $\ekij$, hence
@@ -103,19 +103,19 @@ The second optimal control problem consists in driving a rolling (not falling) d
 	\end{align}
 \end{subequations}
 where $T = 10$ s, $m$ is mass of the disk, $\rho$ is the disk radius, $I_{\theta}$ is the diametral moment of inertia and
-%respect to an axis that passes through the contact point between the disk and the plane and perpendicular to the latter; 
+%respect to an axis that passes through the contact point between the disk and the plane and perpendicular to the latter;
 $I_{\phi}$ is the axial disk moment of inertia.
 %respect to an axis that passes through the center of the disk and is parallel to the plane.
 States $x_1$ and $x_2$ represent the trajectory of the contact point of the disk on the plane, $x_3$ is the heading angle measured with respect to
-%as measured between the disk rolling direction and 
+%as measured between the disk rolling direction and
 the $x$-axis and $x_4$ is the rolling angle. Then, $x_5$, $x_6$ are the steering and rolling speed, respectively.
 The disk is controlled with two torques, $u_1$ for the steering action and $u_2$ for the rolling action. Starting at the origin ($x_1(0) = 0, \, x_2(0) = 0$) and heading along the $y$-axis ($x_3(0) = \pi/2$), the disk has to reach the final position described by
 Eqn.~(\ref{eq:diskfinal1}). It is worth recalling that, for a more compact notation, $X = [x_1, x_2, x_3, x_4, x_5, x_6]$  and $U = [u_1, u_2]$.
 \begin{figure}[t]
 	\centering
 	\includegraphics[trim={1cm 0.1cm 2cm 1.05cm},clip,width=1\columnwidth]{Img/pnh1_disk1}
-	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF FIRST STATE ($x_{1}$) FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
-		OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$.}
+	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF FIRST STATE ($x_{1}$) FOR THE INITIAL MESH (RED), FOR $\pnh$ ALGORITHM (BLUE), AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
+		OPTIMAL $x_1$ PROFILE OBTAINED WITH $\pnh$ ALGORITHM.}
 	\label{fig:pnh1disk}
 \end{figure}
 In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (top panels) is shown, for the $\pnh$ algorithm and for the $ph$ one, the final degree of state $x_1$ (horizontal coordinate) and of state $x_3$ (heading angle), respectively.
@@ -128,8 +128,8 @@ In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (bottom panels) the optimal profi
 \begin{figure}[t]
 	\centering
 	\includegraphics[trim={1cm 0.1cm 2cm 1.05cm},clip,width=1.\columnwidth]{Img/pnh2_disk2}
-	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF THIRD STATE ($x_{3}$) FOR THE INITIAL MESH (RED) FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM)
-	OPTIMAL $x_3$ PROFILE OBTAINED WITH $\pnh$.}
+	\caption{EXAMPLE 2: (TOP) POLYNOMIAL DEGREE OF THIRD STATE ($x_{3}$) FOR THE INITIAL MESH (RED), FOR $\pnh$ ALGORITHM (BLUE), AND FOR $ph$ ALGORITHM (GREEN); (BOTTOM)
+	OPTIMAL $x_3$ PROFILE OBTAINED WITH $\pnh$ ALGORITHM.}
 	\label{fig:pnh2disk}
 \end{figure}
 %%%%%%%%%%%%%%
@@ -177,7 +177,7 @@ where $x_1$ and $x_2$ are the inertial coordinates of the center of gravity, $x_
 \begin{figure}[t]
 	\centering
 	\includegraphics[trim={1cm 0.1cm 2cm 1.05cm},clip,width=1.\linewidth]{Img/pnh1_free}
-	\caption{EXAMPLE 3: (TOP) POLYNOMIAL DEGREE OF $x_{3}$ FOR THE INITIAL MESH (RED), FOR $\pnh$ ALGORITHM (BLUE) AND FOR $ph$ ALGORITHM (GREEN), (BOTTOM) OPTIMAL $x_3$ PROFILE OBTAINED WITH $\pnh$.}
+	\caption{EXAMPLE 3: (TOP) POLYNOMIAL DEGREE OF $x_{3}$ FOR THE INITIAL MESH (RED), FOR $\pnh$ ALGORITHM (BLUE), AND FOR $ph$ ALGORITHM (GREEN); (BOTTOM) OPTIMAL $x_3$ PROFILE OBTAINED WITH $\pnh$ ALGORITHM.}
 	\label{fig:pnh1free}
 \end{figure}
 %%%%%%%%%%%%%%%%
