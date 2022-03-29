@@ -133,7 +133,7 @@ In Figs.~\ref{fig:pnh1disk}-\ref{fig:pnh2disk} (bottom panels) the optimal profi
 	\label{fig:pnh2disk}
 \end{figure}
 %%%%%%%%%%%%%%
-The advantages of the $\pnh$ method with respect to the $ph$ one, are summarized in Table~\ref{tab:tabledisk}. It is interesting to note that, even if $\pnh$ method needs an extra iteration, it maintains a total time equal to the $ph$ method. Furthermore, under the same tolerance $e_{\max}$, the number of variables involved in the last NLP (leading to the most accurate solution) of $\pnh$ are 25\% less than the original method. This represent a noteworthy reduction.
+The advantages of the $\pnh$ method with respect to the $ph$ one, are summarized in Table~\ref{tab:tabledisk}. It is interesting to note that, even if $\pnh$ method needs an extra iteration, it maintains a total time equal to the $ph$ method. Furthermore, under the same tolerance $e_{\max}$, the number of variables involved in the last NLP (leading to the most accurate solution) of $\pnh$ are 25\% less than the original method. This represents a noteworthy reduction.
 
 For what concerns the nodal deviations of the $\pnh$ and $ph$ solutions at nodal values, the maximum value is registered for $u_2$. Again, this difference is in the order of $10^{-6}$, which is absolutely negligible given the control signal $u_2$ in the order of $10^0$. Therefore, the two methods lead to equally accurate solutions.
 \begin{table}[t]
@@ -156,7 +156,7 @@ For what concerns the nodal deviations of the $\pnh$ and $ph$ solutions at nodal
 %\newline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Example 3: Free-Flying Robot}
-As the last example, we consider to optimally control the attitude of a 2D free-flying robot endowed with a propulsion system. This problem is taken from reference~\cite{Betts:book:2010}, with a modified cost function. Analytically, it can be framed as follows
+As the last example, we consider to optimally control the pose of a 2D free-flying robot endowed with a propulsion system. This problem is taken from reference~\cite{Betts:book:2010}, with a modified cost function. Analytically, it can be framed as follows
 \begin{subequations}\label{eq:free}
 	\begin{align}
 	\underset{X \in \mathbb{R}^{6}, \, U \in \mathbb{R}^{2}}{\text{minimize}}\hspace{8mm}
