@@ -74,7 +74,7 @@ where $\bardk = \max\limits_{i= 1, \dots, n_x}(\dki)$, $\bardkm = \bardk -1$, $\
 
 From this polynomial approximation the numerical integral $J_k$ of the running cost function $g(t)$ in the $k$-th element can be obtained from the following equation
 \begin{equation}\label{eq:nlpcostk}
-	J_k = \sum_{m=1}^{\bardk}\Big(\int_{0}^{1}\lmbd(\tau)d\tau\Big)\gkm \hk.
+	J_k = \sum_{m=1}^{\bardk}\Big(\int_{0}^{1}\lmbdm(\tau)d\tau\Big)\gkm \hk.
 \end{equation}
 With the equations shown in this section it is possible to transform the original OCP into an NLP by writing them for $k = 1, \dots, N$, and considering that the total cost function $J$, that has to be minimized, is given by $J = \sum_{k=1}^{N}J_k$.
 
